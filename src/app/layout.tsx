@@ -1,18 +1,30 @@
-import './globals.css'
+import React, { useEffect } from "react";
+import Head from "./head";
+import Header from "./header";
+import Footer from "./footer";
+import Container from "./container";
+import Contents from "./contents";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface pageProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: pageProps) {
+  // const [mounted, setMounted] = useState(false);
+
+  // useEffect(() => setMounted(true), []);
+  // if (!mounted) return null;
+
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-      <body>{children}</body>
+    <html lang="ko">
+      <Head />
+      <body>
+        <Container>
+          <Header />
+          <Contents>{children}</Contents>
+          <Footer />
+        </Container>
+      </body>
     </html>
-  )
+  );
 }
