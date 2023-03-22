@@ -1,11 +1,6 @@
-import React from 'react'
+import React from "react";
 
-interface ContentsProps {
-    children : React.ReactNode
-}
 
-export default function Contents({children}: ContentsProps) {
-    return (
-        <div className='ly-contents'>{children}</div>
-    )
+export default function Contents({ children }: { children: React.ReactNode }) {
+  return <div className="ly-contents">{children}</div>;
 }

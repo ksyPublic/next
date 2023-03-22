@@ -1,9 +1,9 @@
+"use client";
+
 import React from "react";
 import Nav from "./navigation";
 
-interface HeaderProps {}
-
-export default function Header({}: HeaderProps) {
+export default function Header() {
   return (
     <header className="ly-header">
       <Nav />

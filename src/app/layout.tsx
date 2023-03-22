@@ -1,30 +1,55 @@
-import React, { useEffect } from "react";
+"use client";
+import { createTheme, NextUIProvider } from "@nextui-org/react";
+import { useSSR } from "@nextui-org/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import React from "react";
 import Head from "./head";
 import Header from "./header";
 import Footer from "./footer";
 import Container from "./container";
 import Contents from "./contents";
 
-interface pageProps {
-  children: React.ReactNode;
-}
+const lightTheme = createTheme({
+  type: "light",
+  // theme: {
+  //   colors: {...}, // optional
+  // }
+});
 
-export default function RootLayout({ children }: pageProps) {
-  // const [mounted, setMounted] = useState(false);
+const darkTheme = createTheme({
+  type: "dark",
+  // theme: {
+  //   colors: {...}, // optional
+  // }
+});
 
-  // useEffect(() => setMounted(true), []);
-  // if (!mounted) return null;
-
+function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isBrowser } = useSSR();
   return (
     <html lang="ko">
       <Head />
       <body>
-        <Container>
-          <Header />
-          <Contents>{children}</Contents>
-          <Footer />
-        </Container>
+        <NextThemesProvider
+          defaultTheme="light"
+          attribute="class"
+          value={{
+            light: lightTheme.className,
+            dark: darkTheme.className,
+          }}
+        >
+          <NextUIProvider>
+            {isBrowser && (
+              <Container>
+                <Header />
+                <Contents>{children}</Contents>
+                <Footer />
+              </Container>
+            )}
+          </NextUIProvider>
+        </NextThemesProvider>
       </body>
     </html>
   );
 }
+
+export default RootLayout;
