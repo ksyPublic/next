@@ -12,7 +12,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@fontsource/amiri": "^4.5.11",
     "@fontsource/merriweather": "^4.5.14",
     "@fontsource/noto-sans-kr": "^4.5.12",
     "@fontsource/roboto": "^4.5.8",

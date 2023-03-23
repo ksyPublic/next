@@ -264,11 +264,6 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fontsource/amiri@^4.5.11":
-  version "4.5.11"
-  resolved "https://registry.yarnpkg.com/@fontsource/amiri/-/amiri-4.5.11.tgz#c28cf5d227bdb84906fb40149978d759778c210b"
-  integrity sha512-lnV8Ihr4QW3YWsK/36O1O3jSBouGdwecDkeIyfZnf9+GI/n+shzeO0/PWZmk9ieWMm+ZF7KFMU6C71woaiSdmQ==
-
 "@fontsource/merriweather@^4.5.14":
   version "4.5.14"
   resolved "https://registry.yarnpkg.com/@fontsource/merriweather/-/merriweather-4.5.14.tgz#17b634fe3892e25f345954fe34df252730b96080"
