@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { map } from "lodash";
 import routes from "./routes";
+import { map } from "lodash";
 
 const Route = () => {
   return (
