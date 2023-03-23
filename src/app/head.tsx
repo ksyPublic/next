@@ -1,6 +1,6 @@
 "use client";
 
-export default function Head() {
+const Head = () => {
   return (
     <>
       <title>Create Next App</title>
@@ -9,4 +9,6 @@ export default function Head() {
       <link rel="icon" href="/favicon.ico" />
     </>
   );
-}
+};
+
+export default Head;

@@ -1,9 +1,7 @@
 import "./scss/main.scss";
 
-interface PageProps {
-  children: React.ReactNode;
-}
+const Page = () => {
+  return <main className="ly-main" />;
+};
 
-export default function Page() {
-  return <main className="ly-main">???</main>;
-}
+export default Page;

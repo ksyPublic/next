@@ -1,6 +1,6 @@
 "use client";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
-import { useSSR } from "@nextui-org/react";
+import { useSSR, CssBaseline } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import React from "react";
 import Head from "./head";
@@ -23,7 +23,7 @@ const darkTheme = createTheme({
   // }
 });
 
-function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const { isBrowser } = useSSR();
   return (
     <html lang="ko">
@@ -50,6 +50,6 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-export default function foot() {
-    return (
-        <footer className="ly-foot">하단</footer>
-    )
-}
+const foot = () => {
+  return <footer className="ly-foot">하단</footer>;
+};
+
+export default foot;

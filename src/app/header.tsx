@@ -3,10 +3,12 @@
 import React from "react";
 import Nav from "./navigation";
 
-export default function Header() {
+const Header = () => {
   return (
     <header className="ly-header">
       <Nav />
     </header>
   );
-}
+};
+
+export default Header;
