@@ -1,11 +1,23 @@
 "use client";
-import "./scss/main.scss";
-import "@fontsource/roboto";
-import "@fontsource/Merriweather";
-import "@fontsource/noto-sans-kr";
+import axios from "axios";
+interface PageProps {
+  props: any;
+}
 
-const Page = () => {
+const Page = ({ props }: PageProps) => {
+  console.log("???", props);
+  //home
   return <main className="ly-main" />;
+};
+
+export const getServerSideProps = async () => {
+  const host = process.env.HOST;
+  const data = await (await axios.get(`${host}/api/test`)).data;
+  return {
+    props: {
+      datas: data,
+    },
+  };
 };
 
 export default Page;

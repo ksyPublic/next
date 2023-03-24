@@ -95,10 +95,6 @@ const Nav = () => {
               />
             </Search>
           </Toolbar>
-        </AppBar>
-      </Box>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
           <Route />
         </AppBar>
       </Box>

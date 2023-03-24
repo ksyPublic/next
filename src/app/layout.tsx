@@ -1,4 +1,9 @@
 "use client";
+import "./scss/main.scss";
+import "@fontsource/roboto";
+import "@fontsource/Merriweather";
+import "@fontsource/noto-sans-kr";
+
 import React from "react";
 import Head from "./head";
 import Header from "./header";
@@ -11,6 +16,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
+// 실행 결과
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
