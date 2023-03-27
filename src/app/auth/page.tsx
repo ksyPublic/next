@@ -6,12 +6,13 @@ import axios from "axios";
 const AuthPage: NextPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const clientId = process.env.CAFE24_CLIENT_ID;
-  const secretKey = process.env.CAFE24_CLIENT_SECRET;
+  const clientId = "QE8uuFJyPleA31tIRezpfJ";
+  const secretKey = "uQxNPzBUDtMl38MHQN2yOB";
+  const mallID = "pumming";
 
   const handleAuth = async () => {
     const redirectUri = `${window.location.origin}/auth`;
-    const authUrl = `https://mall.cafe24api.com/api/v2/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=read_product`;
+    const authUrl = `https://${mallID}.cafe24api.com/api/v2/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=read_product`;
 
     window.location.href = authUrl;
   };
@@ -19,7 +20,7 @@ const AuthPage: NextPage = () => {
   const handleRedirect = async () => {
     const code = searchParams.get("code");
     const redirectUri = `${window.location.origin}/auth`;
-    const redirectUrl = `https://mall.cafe24api.com/api/v2/oauth/token?grant_type=authorization_code&code=${code}&client_id=${clientId}&client_secret=${secretKey}&redirect_uri=${redirectUri}`;
+    const redirectUrl = `https://${mallID}.cafe24api.com/api/v2/oauth/token?grant_type=authorization_code&code=${code}&client_id=${clientId}&client_secret=${secretKey}&redirect_uri=${redirectUri}`;
 
     const response = await axios.post(redirectUrl);
     const accessToken = response.data.access_token;

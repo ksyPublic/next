@@ -7,7 +7,8 @@
     "start": "next dev",
     "build": "next build",
     "prod": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev": "node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
