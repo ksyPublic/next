@@ -12,6 +12,11 @@ const nextConfig = {
       },
     ];
   },
+  webpack: (config, options) => {
+    config.resolve.extensions.push(".tsx", ".ts", ".js", ".json");
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
