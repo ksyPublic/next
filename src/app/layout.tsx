@@ -1,6 +1,5 @@
 "use client";
 import React, { Fragment, useEffect } from "react";
-import { useRouter } from "next/router";
 import Header from "./header";
 import Footer from "./footer";
 import "./globals.css";
@@ -23,8 +22,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-
   // 컴포넌트가 마운트될 때 Firebase 초기화
   useEffect(() => {
     if (!getApps().length) app;
@@ -33,15 +30,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={noto.className}>
         <AuthContextProvider>
-          {router.pathname === "/login" ? (
+          <Fragment>
+            <Header />
             <main className="flex">{children}</main>
-          ) : (
-            <Fragment>
-              <Header />
-              <main className="flex">{children}</main>
-              <Footer />
-            </Fragment>
-          )}
+            <Footer />
+          </Fragment>
         </AuthContextProvider>
       </body>
     </html>
