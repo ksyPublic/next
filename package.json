@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ksyPublic.github.io/next",
   "name": "next",
   "version": "0.1.0",
   "private": true,
@@ -24,6 +25,7 @@
     "typescript": "5.1.3"
   },
   "devDependencies": {
-    "axios": "^1.4.0"
+    "axios": "^1.4.0",
+    "gh-pages": "^5.0.0"
   }
 }
