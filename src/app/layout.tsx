@@ -1,9 +1,17 @@
+"use client";
+import React, { Fragment, useEffect } from "react";
+import { useRouter } from "next/router";
 import Header from "./header";
 import Footer from "./footer";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { app, getApps } from "@/store/firebase";
+import { AuthContextProvider } from "@/store/authContext";
+import { Noto_Sans_KR } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans_KR({
+  weight: "500",
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "Next",
@@ -15,12 +23,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
+  // 컴포넌트가 마운트될 때 Firebase 초기화
+  useEffect(() => {
+    if (!getApps().length) app;
+  }, []);
   return (
     <html lang="ko">
-      <body className={inter.className}>
-        <Header />
-        <main className="flex">{children}</main>
-        <Footer />
+      <body className={noto.className}>
+        <AuthContextProvider>
+          {router.pathname === "/login" ? (
+            <main className="flex">{children}</main>
+          ) : (
+            <Fragment>
+              <Header />
+              <main className="flex">{children}</main>
+              <Footer />
+            </Fragment>
+          )}
+        </AuthContextProvider>
       </body>
     </html>
   );
