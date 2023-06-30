@@ -5,11 +5,13 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider,
   signOut,
 } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 const firebaseConfig = {
   apiKey: "AIzaSyC3TfLO1hAhFYVymt4aNiM5uP9LY4fSNx8",
@@ -32,6 +34,7 @@ export {
   getAuth,
   googleProvider,
   githubProvider,
+  facebookProvider,
   getApps,
   signInWithPopup,
   firebaseConfig,

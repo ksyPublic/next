@@ -1,7 +1,6 @@
 "use client";
 import React, { Fragment, useEffect } from "react";
-import Header from "./header";
-import Footer from "./footer";
+
 import "./globals.css";
 import { app, getApps } from "@/store/firebase";
 import { AuthContextProvider } from "@/store/authContext";
@@ -29,13 +28,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={noto.className}>
-        <AuthContextProvider>
-          <Fragment>
-            <Header />
-            <main className="flex">{children}</main>
-            <Footer />
-          </Fragment>
-        </AuthContextProvider>
+        <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   );
