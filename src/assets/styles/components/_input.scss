@@ -1,0 +1,23 @@
+.ui-input {
+  $root: ui-input;
+
+  // input[type='text'],
+  // input[type='password'] {
+  //   &.focus {
+  //     //
+  //   }
+  // }
+
+  .#{$root}-label {
+    transition: all 0.4s ease;
+  }
+
+  &.is-focused {
+    .#{$root}-label {
+      position: absolute;
+      top: 0;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+  }
+}

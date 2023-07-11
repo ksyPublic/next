@@ -4,6 +4,18 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  /** 서버 실행시 경로 설정
+   */
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/main",
+        permanent: true,
+      },
+    ];
+  },
+
   async rewrites() {
     return [
       {

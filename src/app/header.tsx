@@ -1,24 +1,24 @@
-"use client";
-import React, { useContext } from "react";
-import { AuthContext } from "@/store/authContext";
-import { signOut } from "@/store/firebase";
-import { firebaseAuth } from "@/store/auth";
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import React, { useContext } from 'react'
+import { AuthContext } from '@/store/authContext'
+import { signOut } from '@/store/firebase'
+import { firebaseAuth } from '@/store/auth'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Header() {
-  const auth = useContext(AuthContext);
-  const user = auth?.user;
+  const auth = useContext(AuthContext)
+  const user = auth?.user
 
   const logoutHandler = () => {
     signOut(firebaseAuth)
       .then(() => {
-        console.log("로그아웃 성공");
+        console.log('로그아웃 성공')
       })
       .catch((error) => {
-        console.error("로그아웃 실패", error);
-      });
-  };
+        console.error('로그아웃 실패', error)
+      })
+  }
 
   return (
     <header className="flex">
@@ -37,7 +37,7 @@ export default function Header() {
                 alt="user profile"
                 width={40}
                 height={40}
-                src={`${user?.photoURL}`}
+                src={`${user?.photoURL || ''}`}
               />
             </li>
             <li className="mr-4 ml-4 font-medium">
@@ -58,5 +58,5 @@ export default function Header() {
         )}
       </div>
     </header>
-  );
+  )
 }

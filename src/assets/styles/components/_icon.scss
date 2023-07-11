@@ -1,0 +1,11 @@
+.ui-icon {
+  position: relative;
+  display: inline-block;
+
+  &.check-symbol {
+    width: 64px;
+    height: 64px;
+    background: (url('../../images/components/check-symbol.svg') no-repeat);
+    background-size: 100%;
+  }
+}

@@ -1,5 +1,10 @@
 // src/service/auth.js
-import { getAuth, githubProvider, googleProvider, facebookProvider } from "./firebase";
+import {
+  getAuth,
+  githubProvider,
+  googleProvider,
+  facebookProvider,
+} from "./firebase";
 
 const firebaseAuth = getAuth();
 const getProvider = (name: any) => {
@@ -8,7 +13,6 @@ const getProvider = (name: any) => {
       return googleProvider;
     case "Github":
       return githubProvider;
-
     case "Facebook":
       return facebookProvider;
     default:

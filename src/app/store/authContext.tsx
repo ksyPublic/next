@@ -4,7 +4,7 @@ import { onAuthStateChanged, getAuth, User } from "firebase/auth";
 import { app } from "./firebase";
 const auth = getAuth(app);
 
-interface AuthContextProps {
+export interface AuthContextProps {
   user: User | null;
 }
 
