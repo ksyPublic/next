@@ -20,7 +20,7 @@ const nextConfig = {
     return [
       {
         source: "/:path*",
-        destination: `http://localhost:${process.env.DEV_HOST}/:path*`,
+        destination: `http://localhost:${process.env.NEXT_PUBLIC_DEV_HOST}/:path*`,
       },
     ];
   },

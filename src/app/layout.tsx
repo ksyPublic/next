@@ -35,7 +35,7 @@ export default function RootLayout({
   }, [])
   return (
     <html lang="ko">
-      <body className={`${noto.variable} ${lato.variable}`}>
+      <body className={`${noto.variable} ${lato.variable}`} id="app">
         <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>

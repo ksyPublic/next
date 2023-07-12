@@ -81,10 +81,10 @@ const MembershipPage = () => {
   const handleSignUp = () => {
     switch (userType) {
       case 'email':
-        emailLogin(userId, userPassword)
+        emailMemberJoin(userId, userPassword)
         break
       case 'phone':
-        phoneLogin()
+        phoneMemberJoin()
         break
       default:
         console.error('error')
@@ -92,14 +92,14 @@ const MembershipPage = () => {
     }
   }
 
-  const emailLogin = (email: string, pass: string) => {
+  const emailMemberJoin = (email: string, pass: string) => {
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         const actionCodeSettings = {
           url:
             process.env.NODE_ENV === 'development'
-              ? `http://localhost:${process.env.DEV_HOST}/join/finishSignUp`
-              : `https://${process.env.PRODUCTION_NAME}/join/finishSignUp`,
+              ? `http://localhost:${process.env.NEXT_PUBLIC_DEV_HOST}/join/finishSignUp`
+              : `https://${process.env.NEXT_PUBLIC_PRODUCTION_NAME}/join/finishSignUp`,
 
           // URL you want to redirect back to
           handleCodeInApp: true // This must be true
@@ -121,7 +121,7 @@ const MembershipPage = () => {
       })
   }
 
-  const phoneLogin = () => {
+  const phoneMemberJoin = () => {
     //
   }
 

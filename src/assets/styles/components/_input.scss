@@ -1,6 +1,4 @@
 .ui-input {
-  $root: ui-input;
-
   // input[type='text'],
   // input[type='password'] {
   //   &.focus {
@@ -8,12 +6,12 @@
   //   }
   // }
 
-  .#{$root}-label {
+  .ui-input-label {
     transition: all 0.4s ease;
   }
 
   &.is-focused {
-    .#{$root}-label {
+    .ui-input-label {
       position: absolute;
       top: 0;
       transition: all 0.3s ease;

@@ -9,6 +9,7 @@ type props = {
   disabled?: boolean
   width?: number
   icon?: string
+  id?: string
 }
 
 const Button = ({
@@ -20,7 +21,8 @@ const Button = ({
   className,
   disabled,
   width,
-  icon
+  icon,
+  id
 }: props) => {
   const getComputedButtonStyled = () => {
     switch (variant) {
@@ -51,13 +53,14 @@ const Button = ({
       style={{ width: `${width}px` }}
     >
       <button
+        id={id}
         disabled={disabled}
         type={type}
         className={`button ${size} ${
           icon
             ? 'bg-transparent hover:bg-transparent py-0 px-0'
             : getComputedButtonStyled()
-        }${className ? className : ''}`}
+        } ${className ? className : ''}`}
         onClick={onClick}
         data-value={variant}
       >

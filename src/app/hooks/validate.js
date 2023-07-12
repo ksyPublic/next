@@ -14,8 +14,17 @@ function validatePassword(password) {
   return re.test(String(password));
 }
 
+function toPhoneKR(phoneNumber) {
+  if (!phoneNumber.startsWith('010')) {
+    throw new Error('Invalid phone number. Korean phone numbers must start with 010.');
+  }
+
+  return '+82' + phoneNumber.substring(1);
+}
+
 export {
   validateEmail,
   validatePhoneNumber,
-  validatePassword
+  validatePassword,
+  toPhoneKR
 }
