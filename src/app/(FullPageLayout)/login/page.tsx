@@ -7,9 +7,10 @@ import {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  FirebaseError,
-  ConfirmationResult
+  FirebaseError
 } from '@/store/firebase'
+
+import { ConfirmationResult } from 'firebase/auth'
 import { getProvider, firebaseAuth } from '@/store/auth'
 import { Button, Input, Text, Checkbox, MessageBox } from '@/components'
 import {
@@ -197,7 +198,7 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center w-full">
       <div className="login-wrap" aria-hidden />
-      <div className="z-10 w-[480px] text-center bg-black py-16 px-20 rounded-md">
+      <div className="z-10 w-[560px] text-center bg-black py-16 px-20 rounded-md">
         <form>
           <Text
             as="h2"
@@ -210,20 +211,24 @@ const LoginPage = () => {
             onChange={changeUserId}
             onBlur={checkUserId}
           />
-          <Input
-            placeholder="인증번호를 입력해주세요."
-            className={`mt-2 ${
-              userType && userType === 'phone' ? 'block' : 'hidden'
-            }`}
-            onChange={getCodeFromUserInput}
-          />
-          <Button
-            className={`text-sm mt-2 bg-blue-900 !font-normal ${
-              userType && userType === 'phone' ? 'block' : 'hidden'
-            }`}
-            name="인증번호발송"
-            onClick={(e) => phoneConfirmMsg(userId)}
-          />
+          <div className="flex">
+            <Input
+              placeholder="인증번호를 입력해주세요."
+              className={`mt-2 mr-2 ${
+                userType && userType === 'phone' ? 'block' : 'hidden'
+              }`}
+              onChange={getCodeFromUserInput}
+            />
+            <Button
+              variant="primary"
+              className={`mt-2 whitespace-nowrap ${
+                userType && userType === 'phone' ? 'block' : 'hidden'
+              }`}
+              name="인증번호발송"
+              onClick={(e) => phoneConfirmMsg(userId)}
+            />
+          </div>
+
           <MessageBox
             hidden={!userIdValidate}
             text={
@@ -280,7 +285,7 @@ const LoginPage = () => {
         </form>
         <Button
           name="로그인"
-          className="w-full mt-8 font-medium mx-auto py-3 bg-blue-800 hover:bg-blue-700"
+          className="w-full mt-8 font-medium mx-auto"
           onClick={onLogin}
         />
         <Button

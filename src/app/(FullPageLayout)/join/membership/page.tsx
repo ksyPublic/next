@@ -11,6 +11,7 @@ import {
 
 import {
   getAuth,
+  FirebaseError,
   createUserWithEmailAndPassword,
   sendSignInLinkToEmail
 } from '@/store/firebase'
@@ -50,8 +51,6 @@ const MembershipPage = () => {
 
       if (validateEmail(userId)) {
         setUserType('email')
-      } else if (validatePhoneNumber(userId)) {
-        setUserType('phone')
       }
     } else {
       setUserIdValidate(false)
@@ -83,9 +82,7 @@ const MembershipPage = () => {
       case 'email':
         emailMemberJoin(userId, userPassword)
         break
-      case 'phone':
-        phoneMemberJoin()
-        break
+
       default:
         console.error('error')
         break
@@ -98,7 +95,7 @@ const MembershipPage = () => {
         const actionCodeSettings = {
           url:
             process.env.NODE_ENV === 'development'
-              ? `http://localhost:${process.env.NEXT_PUBLIC_DEV_HOST}/join/finishSignUp`
+              ? `http://${process.env.NEXT_PUBLIC_DEV_HOST}/join/finishSignUp`
               : `https://${process.env.NEXT_PUBLIC_PRODUCTION_NAME}/join/finishSignUp`,
 
           // URL you want to redirect back to
@@ -108,88 +105,96 @@ const MembershipPage = () => {
         sendSignInLinkToEmail(auth, email, actionCodeSettings)
           .then(() => {
             window.localStorage.setItem('emailForSignIn', email)
-            console.log('Verification email sent.')
-
             router.push('/join/finishSignUp')
           })
           .catch((error) => {
-            console.error(error)
+            if (error instanceof FirebaseError) {
+              let errorCode = error.code
+              switch (errorCode) {
+                case 'auth/email-already-in-use':
+                  console.log(
+                    '이미 회원가입이 되어있는 상태일때 : 추후 Alert 처리 예정'
+                  )
+                  break
+
+                default:
+                  console.error('An unknown error occurred.')
+              }
+            }
           })
       })
       .catch((error) => {
-        console.error(error)
+        console.error('에러가 어디서나는지1', error)
       })
-  }
-
-  const phoneMemberJoin = () => {
-    //
   }
 
   return (
     <div className="flex items-center justify-center w-full">
       <div className="login-wrap" aria-hidden />
-      <div className="z-10 w-[680px] text-center bg-black py-16 px-20 rounded-md">
-        <Text
-          as="h2"
-          className="text-2xl font-medium text-white text-left"
-          name="회원가입"
-        />
-        <Input
-          placeholder="아이디"
-          className="mt-4"
-          onChange={changeUserId}
-          onBlur={checkUserId}
-        />
-        <MessageBox
-          text={
-            userIdValidate
-              ? '올바른 아이디를 입력해주세요'
-              : '휴대폰번호 또는 이메일 주소'
-          }
-          error={userIdValidate}
-        />
-        <Input
-          variant="password"
-          placeholder="비밀번호"
-          className="mt-2"
-          onChange={changeUserPassword}
-          onBlur={checkUserPassword}
-        />
-        <MessageBox
-          hidden={!userPassValidate}
-          text={
-            userPassValidate
-              ? '유효한 비밀번호가 아닙니다. 다시 입력해주세요.'
-              : '영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리'
-          }
-          error={userPassValidate}
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호 확인"
-          className="mt-2"
-          onChange={changePasswordConfirm}
-          onBlur={checkUserPassConfirm}
-        />
-        <MessageBox
-          text={
-            !passConfirmValidate && passConfirmValidate !== null
-              ? '비밀번호가 일치하지 않습니다. 다시 입력해주세요.'
-              : '영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리'
-          }
-          error={!passConfirmValidate && passConfirmValidate !== null}
-        />
-
-        <div className="mt-8">
-          <Button
-            disabled={
-              userIdValidate || userPassValidate || !passConfirmValidate
-            }
-            name="가입하기"
-            className="w-full font-medium text-xl mx-auto py-4 bg-blue-800 hover:bg-blue-700 disabled:bg-gray-700 text-gray-600"
-            onClick={handleSignUp}
+      <div className="z-10 w-[560px] text-center bg-black py-16 px-20 rounded-md">
+        <form>
+          <Text
+            as="h2"
+            className="text-2xl font-medium text-white text-left"
+            name="회원가입"
           />
-        </div>
+          <Input
+            placeholder="아이디"
+            className="mt-4"
+            onChange={changeUserId}
+            onBlur={checkUserId}
+          />
+          <MessageBox
+            text={
+              userIdValidate
+                ? '올바른 아이디를 입력해주세요'
+                : '이메일 주소를 입력해주세요.'
+            }
+            error={userIdValidate}
+          />
+          <Input
+            variant="password"
+            placeholder="비밀번호"
+            className="mt-2"
+            onChange={changeUserPassword}
+            onBlur={checkUserPassword}
+          />
+          <MessageBox
+            hidden={!userPassValidate}
+            text={
+              userPassValidate
+                ? '유효한 비밀번호가 아닙니다. 다시 입력해주세요.'
+                : '영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리'
+            }
+            error={userPassValidate}
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호 확인"
+            className="mt-2"
+            onChange={changePasswordConfirm}
+            onBlur={checkUserPassConfirm}
+          />
+          <MessageBox
+            text={
+              !passConfirmValidate && passConfirmValidate !== null
+                ? '비밀번호가 일치하지 않습니다. 다시 입력해주세요.'
+                : '영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리'
+            }
+            error={!passConfirmValidate && passConfirmValidate !== null}
+          />
+
+          <div className="mt-8">
+            <Button
+              disabled={
+                userIdValidate || userPassValidate || !passConfirmValidate
+              }
+              name="가입하기"
+              className="w-full font-medium text-xl mx-auto py-4"
+              onClick={handleSignUp}
+            />
+          </div>
+        </form>
       </div>
     </div>
   )

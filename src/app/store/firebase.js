@@ -14,8 +14,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  ConfirmationResult
 } from "firebase/auth";
+
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
@@ -53,6 +53,5 @@ export {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  ConfirmationResult,
   FirebaseError,
 };

@@ -34,7 +34,7 @@ const FinishSignUpPage = () => {
         <Button
           name="홈으로"
           width={240}
-          className="mt-8 font-medium text-md mx-auto py-2 bg-blue-800 hover:bg-blue-700 disabled:bg-gray-700 text-gray-600"
+          className="mt-8 text-md mx-auto py-2"
           onClick={() => {
             router.push('/main')
           }}
