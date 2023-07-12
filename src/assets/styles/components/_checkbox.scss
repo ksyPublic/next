@@ -1,0 +1,12 @@
+.ui-checkbox {
+  cursor: pointer;
+  &.checked {
+    input[type='checkbox'] + span:before {
+      background-color: #fff;
+    }
+
+    svg {
+      display: block;
+    }
+  }
+}

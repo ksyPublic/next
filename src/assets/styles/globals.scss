@@ -1,0 +1,31 @@
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+@import './components/checkbox';
+@import './components/input';
+@import './components/messagebox.scss';
+@import './components/button.scss';
+@import './components/icon.scss';
+
+@import './login.scss';
+
+:root {
+  /* --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255; */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0; */
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgba(0, 0, 0, 1);
+  font-family: var(--font-noto);
+}
