@@ -19,13 +19,13 @@ const githubProvider = new GithubAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3TfLO1hAhFYVymt4aNiM5uP9LY4fSNx8",
-  authDomain: "next-create-app.firebaseapp.com",
-  projectId: "next-create-app",
-  storageBucket: "next-create-app.appspot.com",
-  messagingSenderId: "132742249548",
-  appId: "1:132742249548:web:f9c3f3f595ff77670288e9",
-  measurementId: "G-81K9SP03C2",
+  apiKey: `${process.env.API_KEY}`,
+  authDomain: `${process.env.AUTH_DOMAIN}`,
+  projectId: `${process.env.PROJECT_ID}`,
+  storageBucket: `${process.env.STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.MESSAGING_SENDER_ID}`,
+  appId: `${process.env.APP_ID}`,
+  measurementId: `${process.env.MEASUREMENT_ID}`,
 };
 
 // const analytics = getAnalytics(app);

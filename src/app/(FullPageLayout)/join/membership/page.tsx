@@ -98,8 +98,8 @@ const MembershipPage = () => {
         const actionCodeSettings = {
           url:
             process.env.NODE_ENV === 'development'
-              ? 'http://localhost:3001/join/finishSignUp'
-              : 'https://next-create-app/join/finishSignUp',
+              ? `http://localhost:${process.env.DEV_HOST}/join/finishSignUp`
+              : `https://${process.env.PRODUCTION_NAME}/join/finishSignUp`,
 
           // URL you want to redirect back to
           handleCodeInApp: true // This must be true
