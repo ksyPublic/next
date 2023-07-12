@@ -6,8 +6,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+<<<<<<< HEAD
+    "prod": "next start",
+    "lint": "next lint",
+    "dev": "node server.js"
+=======
     "start": "next start",
     "lint": "next lint"
+>>>>>>> 2f30039e76d9f6934858f4047367152a363dd1c7
   },
   "dependencies": {
     "@types/node": "20.3.2",
