@@ -1,3 +1,4 @@
+import { Icon } from '@/components'
 type props = {
   name?: String
   type?: 'button' | 'submit' | 'reset'
@@ -7,6 +8,7 @@ type props = {
   className?: String
   disabled?: boolean
   width?: number
+  icon?: string
 }
 
 const Button = ({
@@ -17,7 +19,8 @@ const Button = ({
   onClick,
   className,
   disabled,
-  width
+  width,
+  icon
 }: props) => {
   const getComputedButtonStyled = () => {
     switch (variant) {
@@ -39,16 +42,26 @@ const Button = ({
   }
 
   return (
-    <div className="ui-button" style={{ width: `${width}px` }}>
+    <div
+      className={`${
+        icon
+          ? 'ui-button-icon absolute right-4 top-4 w-6 h-6 z-10'
+          : 'ui-button'
+      }`}
+      style={{ width: `${width}px` }}
+    >
       <button
         disabled={disabled}
         type={type}
-        className={`button ${size} ${getComputedButtonStyled()}  ${
-          className ? className : ''
-        }`}
+        className={`button ${size} ${
+          icon
+            ? 'bg-transparent hover:bg-transparent py-0 px-0'
+            : getComputedButtonStyled()
+        }${className ? className : ''}`}
         onClick={onClick}
         data-value={variant}
       >
+        {icon && <Icon name={icon} />}
         {name}
       </button>
     </div>

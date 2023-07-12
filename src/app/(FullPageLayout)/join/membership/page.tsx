@@ -69,14 +69,12 @@ const MembershipPage = () => {
   }
 
   const checkUserPassConfirm = () => {
-    if (
-      userPassword.length > 0 &&
-      passConfirm.length > 0 &&
-      userPassword === passConfirm
-    ) {
-      setPassConfirmValidate(true)
-    } else {
-      setPassConfirmValidate(false)
+    if (userPassword.length > 0 && passConfirm.length > 0) {
+      if (userPassword === passConfirm) {
+        setPassConfirmValidate(true)
+      } else {
+        setPassConfirmValidate(false)
+      }
     }
   }
 
@@ -151,7 +149,7 @@ const MembershipPage = () => {
           error={userIdValidate}
         />
         <Input
-          type="password"
+          variant="password"
           placeholder="비밀번호"
           className="mt-2"
           onChange={changeUserPassword}
@@ -181,14 +179,17 @@ const MembershipPage = () => {
           }
           error={!passConfirmValidate && passConfirmValidate !== null}
         />
-        <Button
-          disabled={
-            !userIdValidate && !userPassValidate && !passConfirmValidate
-          }
-          name="가입하기"
-          className="mt-2 w-full font-medium text-xl mx-auto py-4 bg-blue-800 hover:bg-blue-700 disabled:bg-gray-700 text-gray-600"
-          onClick={handleSignUp}
-        />
+
+        <div className="mt-8">
+          <Button
+            disabled={
+              userIdValidate || userPassValidate || !passConfirmValidate
+            }
+            name="가입하기"
+            className="w-full font-medium text-xl mx-auto py-4 bg-blue-800 hover:bg-blue-700 disabled:bg-gray-700 text-gray-600"
+            onClick={handleSignUp}
+          />
+        </div>
       </div>
     </div>
   )

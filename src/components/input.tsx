@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect, useRef } from 'react'
+import { Button } from '@/components'
 import { v4 as uuidv4 } from 'uuid'
 
 type props = {
@@ -9,6 +10,7 @@ type props = {
   onFocus?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   id?: string
+  variant?: string
 }
 
 const Input = ({
@@ -18,9 +20,11 @@ const Input = ({
   onChange,
   onBlur,
   onFocus,
-  id
+  id,
+  variant
 }: props) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
+  const [useType, setUseType] = useState<string>(variant ? variant : type)
   const [isFocused, setIsFocused] = useState(false)
   const [uniqueId, setUniqueId] = useState(id)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -58,6 +62,12 @@ const Input = ({
       : inputRef?.current?.classList.add('is-focused')
   }, [value])
 
+  const passToggle = () => {
+    setUseType((prevType: string) =>
+      prevType === 'password' ? 'text' : 'password'
+    )
+  }
+
   return (
     <div
       className={`ui-input relative ${className ? className : ''} ${
@@ -67,20 +77,30 @@ const Input = ({
     >
       <input
         id={uniqueId}
-        type={type}
+        type={useType}
         value={value}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        className={`w-full h-14 text-sm px-4 rounded-md text-white border-solid bg-gray-700`}
+        className={`w-full h-14 text-sm rounded-md text-white border-solid bg-gray-700 ${
+          variant === 'password' ? 'pl-4 pr-12' : 'px-4'
+        }`}
         autoComplete={'off'}
       />
       <label
         htmlFor={uniqueId}
-        className={`ui-input-label absolute block left-4 top-[17px] text-gray-400 z-1 text-sm`}
+        className={`ui-input-label absolute block left-4 top-[17px] text-gray-400 z-1 text-sm pointer-events-none`}
       >
         {placeholder}
       </label>
+      {variant === 'password' && (
+        <Button
+          icon={`${variant && useType === 'password' ? 'eye' : 'eye-on'}`}
+          type="button"
+          aria-label="패스워드 보기"
+          onClick={passToggle}
+        />
+      )}
     </div>
   )
 }

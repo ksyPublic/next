@@ -143,7 +143,7 @@ const LoginPage = () => {
           error={userIdValidate}
         />
         <Input
-          type="password"
+          variant="password"
           placeholder="비밀번호를 입력해주세요."
           className="mt-2"
           onChange={changeUserPassword}
