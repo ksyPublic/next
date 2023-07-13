@@ -1,3 +1,4 @@
+'use client'
 import React, { ChangeEvent, useState, useEffect, useRef } from 'react'
 import { Button } from '@/components'
 import { v4 as uuidv4 } from 'uuid'

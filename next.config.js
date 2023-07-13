@@ -20,10 +20,11 @@ const nextConfig = {
     return [
       {
         source: "/:path*",
-        destination: `http://localhost:${process.env.NEXT_PUBLIC_DEV_HOST}/:path*`,
+        destination: `http://${process.env.NEXT_PUBLIC_DEV_HOST}/:path*`,
       },
     ];
   },
+
   webpack: (config, options) => {
     config.resolve.extensions.push(".tsx", ".ts", ".js", ".json");
 

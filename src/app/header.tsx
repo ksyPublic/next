@@ -1,23 +1,29 @@
 'use client'
 import React, { useContext } from 'react'
-import { AuthContext } from '@/store/authContext'
-import { signOut } from '@/store/firebase'
-import { firebaseAuth } from '@/store/auth'
+import { AuthContext } from '@/store/user/authContext'
+import { signOut } from '@/store/user'
+import { firebaseAuth } from '@/store/user/auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
   const auth = useContext(AuthContext)
   const user = auth?.user
+  const router = useRouter()
 
-  const logoutHandler = () => {
-    signOut(firebaseAuth)
-      .then(() => {
-        console.log('로그아웃 성공')
-      })
-      .catch((error) => {
-        console.error('로그아웃 실패', error)
-      })
+  async function logoutHandler() {
+    //Sign out with the Firebase client
+    await signOut(firebaseAuth)
+
+    //Clear the cookies in the server
+    const response = await fetch('http://localhost:5001/api/signOut', {
+      method: 'POST'
+    })
+
+    if (response.status === 200) {
+      router.push('/login')
+    }
   }
 
   return (

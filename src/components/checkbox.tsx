@@ -1,41 +1,36 @@
-import { v4 as uuidv4 } from "uuid";
-import React, { useState, ChangeEvent, Fragment } from "react";
+'use client'
+import { v4 as uuidv4 } from 'uuid'
+import React, { useState, ChangeEvent, Fragment } from 'react'
 
 type props = {
-  name?: string;
-  position?: string;
-  id?: string;
-  defaultChecked?: boolean;
-  onChange?: (checked: boolean) => void;
-};
+  name?: string
+  position?: string
+  id?: string
+  checked?: boolean
+  onChange?: (e: ChangeEvent<HTMLInputElement>, checked: boolean) => void
+}
 
-const Checkbox = ({
-  name,
-  position,
-  id,
-  defaultChecked = false,
-  onChange,
-}: props) => {
-  const [checked, setChecked] = useState(defaultChecked);
+const Checkbox = ({ name, position, id, checked = false, onChange }: props) => {
+  const [check, setCheck] = useState(checked)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
+    setCheck(e.target.checked)
     if (onChange) {
-      onChange(e.target.checked);
+      onChange(e, e.target.checked)
     }
-  };
+  }
 
-  const uniqueId = id ? id : uuidv4();
+  const uniqueId = id ? id : uuidv4()
   const customCheckboxStyled = `before:content-[''] before:mr-2 before:w-4 before:h-4 before:inline-block before:bg-gray-700 before:rounded-sm flex items-center
-  after:content-[''] after:mr-2 after:absolute after:left-0 after:top-0 after:z-10 after:w-4 after:h-4`;
+  after:content-[''] after:mr-2 after:absolute after:left-0 after:top-0 after:z-10 after:w-4 after:h-4`
   return (
     <Fragment>
       <label
         className={`ui-checkbox text-gray-500 relative text-sm ${
-          checked ? "checked" : ""
+          checked ? 'checked' : ''
         }`}
         htmlFor={uniqueId}
       >
-        {position !== "right" && (
+        {position !== 'right' && (
           <span className={customCheckboxStyled}>{name}</span>
         )}
         <input
@@ -43,10 +38,10 @@ const Checkbox = ({
           id={uniqueId}
           className="appearance-none hidden"
           onChange={handleChange}
-          checked={checked}
-          aria-checked={checked}
+          checked={check}
+          aria-checked={check}
         />
-        {position === "right" && (
+        {position === 'right' && (
           <span className={customCheckboxStyled}>{name}</span>
         )}
 
@@ -64,7 +59,7 @@ const Checkbox = ({
         </svg>
       </label>
     </Fragment>
-  );
-};
+  )
+}
 
-export default Checkbox;
+export default Checkbox

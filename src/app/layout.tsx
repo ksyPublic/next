@@ -1,8 +1,8 @@
 'use client'
 import '@/assets/styles/globals.scss'
 import React, { useEffect } from 'react'
-import { app, getApps } from '@/store/firebase'
-import { AuthContextProvider } from '@/store/authContext'
+import { app, getApps } from '@/store/user'
+import { AuthContextProvider } from '@/store/user/authContext'
 import { Noto_Sans_KR, Lato } from 'next/font/google'
 
 const noto = Noto_Sans_KR({

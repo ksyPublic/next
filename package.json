@@ -29,6 +29,7 @@
     "axios": "^1.4.0",
     "encoding": "^0.1.13",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "firebase-admin": "^11.10.0",
     "sass": "^1.63.6",
     "uuid": "^9.0.0"
   }

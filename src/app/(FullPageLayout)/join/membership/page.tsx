@@ -14,7 +14,7 @@ import {
   FirebaseError,
   createUserWithEmailAndPassword,
   sendSignInLinkToEmail
-} from '@/store/firebase'
+} from '@/store/user'
 
 const auth = getAuth()
 
@@ -91,7 +91,7 @@ const MembershipPage = () => {
 
   const emailMemberJoin = (email: string, pass: string) => {
     createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
+      .then(() => {
         const actionCodeSettings = {
           url:
             process.env.NODE_ENV === 'development'
@@ -104,7 +104,6 @@ const MembershipPage = () => {
 
         sendSignInLinkToEmail(auth, email, actionCodeSettings)
           .then(() => {
-            window.localStorage.setItem('emailForSignIn', email)
             router.push('/join/finishSignUp')
           })
           .catch((error) => {
@@ -124,7 +123,7 @@ const MembershipPage = () => {
           })
       })
       .catch((error) => {
-        console.error('에러가 어디서나는지1', error)
+        console.error('error', error)
       })
   }
 

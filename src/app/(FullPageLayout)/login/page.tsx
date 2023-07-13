@@ -1,17 +1,17 @@
 'use client'
-import React, { useEffect, useContext, useState, useRef } from 'react'
-import { AuthContext } from '@/store/authContext'
+import React, { useEffect, useState } from 'react'
 import {
   signInWithPopup,
   getAuth,
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  FirebaseError
-} from '@/store/firebase'
-
+  FirebaseError,
+  getRedirectResult,
+  auth
+} from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
-import { getProvider, firebaseAuth } from '@/store/auth'
+import { getProvider, firebaseAuth } from '@/store/user/auth'
 import { Button, Input, Text, Checkbox, MessageBox } from '@/components'
 import {
   validatePhoneNumber,
@@ -24,9 +24,8 @@ import Link from 'next/link'
 
 const authInstance = getAuth()
 const LoginPage = () => {
-  const JoinMemberShip = '../join/membership'
-  const auth = useContext(AuthContext)
-  const user = auth?.user
+  const JoinMemberShip = '/join/membership'
+  const router = useRouter()
 
   const [recaptchaVerifier, setRecaptchaVerifier] =
     useState<RecaptchaVerifier | null>(null)
@@ -37,10 +36,23 @@ const LoginPage = () => {
   const [userType, setUserType] = useState<string>('')
   const [userIdValidate, setUserIdValidate] = useState<boolean>(false)
   const [userPassValidate, setUserPassValidate] = useState<boolean>(false)
-  const router = useRouter()
+  const [loginAuthSave, setLoginAuthSave] = useState<boolean>(false)
+  const loginAuthSaveUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginAuthSave(e.target.checked)
+  }
 
   const changeUserId = (value: string) => {
     setUserId(value)
+
+    if (value.length > 0) {
+      if (validateEmail(value)) {
+        setUserType('email')
+      } else if (validatePhoneNumber(value)) {
+        setUserType('phone')
+      }
+    } else {
+      setUserType('')
+    }
   }
 
   const changeUserPassword = (value: string) => {
@@ -52,12 +64,6 @@ const LoginPage = () => {
       validateEmail(userId) || validatePhoneNumber(userId)
         ? setUserIdValidate(false)
         : setUserIdValidate(true)
-
-      if (validateEmail(userId)) {
-        setUserType('email')
-      } else if (validatePhoneNumber(userId)) {
-        setUserType('phone')
-      }
     } else {
       setUserIdValidate(false)
     }
@@ -84,6 +90,7 @@ const LoginPage = () => {
         break
 
       default:
+        console.error('로그인 타입이 지정되지 않았습니다.')
         break
     }
   }
@@ -93,7 +100,6 @@ const LoginPage = () => {
       ?.confirm(code)
       .then((result: { user: any }) => {
         const user = result.user
-        // ...
       })
       .catch((error: any) => {
         console.error(error)
@@ -140,7 +146,9 @@ const LoginPage = () => {
 
   const emailLogin = async (id: string, pass: string) => {
     try {
-      await signInWithEmailAndPassword(authInstance, id, pass)
+      await signInWithEmailAndPassword(authInstance, id, pass).then(() => {
+        router.push('/main')
+      })
     } catch (error) {
       if (error instanceof FirebaseError) {
         let errorCode = error.code
@@ -163,11 +171,11 @@ const LoginPage = () => {
     const provider = getProvider(getDataValue)
     try {
       const result = await signInWithPopup(firebaseAuth, provider)
-      // 로그인에 성공한 후의 작업을 수행합니다.
-      router.push('/main')
+      if (result) {
+        router.push('/main')
+      }
     } catch (error) {
       // 에러 처리를 합니다.
-
       console.error('로그인 실패', error)
     }
   }
@@ -188,12 +196,23 @@ const LoginPage = () => {
       )
     )
 
-    if (user) {
-      router.push('/main')
-    } else {
-      return
-    }
-  }, [user, router])
+    //외부서비스 outh 가져오기 추후사용예정
+    getRedirectResult(auth).then(async (userCred) => {
+      if (!userCred) {
+        return
+      }
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${await userCred.user.getIdToken()}`
+        }
+      }).then((response) => {
+        if (response.status === 200) {
+          router.push('/main')
+        }
+      })
+    })
+  }, [router])
 
   return (
     <div className="flex items-center justify-center w-full">
@@ -211,19 +230,19 @@ const LoginPage = () => {
             onChange={changeUserId}
             onBlur={checkUserId}
           />
-          <div className="flex">
+          <div
+            className={`flex ${
+              userType && userType === 'phone' ? 'block' : 'hidden'
+            }`}
+          >
             <Input
               placeholder="인증번호를 입력해주세요."
-              className={`mt-2 mr-2 ${
-                userType && userType === 'phone' ? 'block' : 'hidden'
-              }`}
+              className={`mt-2 mr-2 flex-1`}
               onChange={getCodeFromUserInput}
             />
             <Button
               variant="primary"
-              className={`mt-2 whitespace-nowrap ${
-                userType && userType === 'phone' ? 'block' : 'hidden'
-              }`}
+              className={`mt-2 whitespace-nowrap`}
               name="인증번호발송"
               onClick={(e) => phoneConfirmMsg(userId)}
             />
@@ -258,7 +277,12 @@ const LoginPage = () => {
           />
 
           <div className="flex justify-between mt-4">
-            <Checkbox name="로그인 정보 저장" position="right" />
+            <Checkbox
+              name="로그인 정보 저장"
+              position="right"
+              checked={loginAuthSave}
+              onChange={loginAuthSaveUpdate}
+            />
             <Link href="" className="text-sm text-gray-500 underline">
               도움이 필요하십니까?
             </Link>

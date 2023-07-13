@@ -62,6 +62,7 @@ const Button = ({
             : getComputedButtonStyled()
         } ${disabled ? 'disabled:bg-gray-700 text-gray-600' : ''}`}
         onClick={onClick}
+        data-value={variant}
       >
         {icon && <Icon name={icon} />}
         {name}

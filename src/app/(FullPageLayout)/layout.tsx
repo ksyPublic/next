@@ -9,8 +9,8 @@ export default function DefaultLayout({
   return (
     <Fragment>
       <Link
-        href={'/'}
-        className="absolute left-10 top-10 z-10 text-blue-700 font-extrabold text-4xl tracking-tighter shadow-lg shadow-black"
+        href={'/user'}
+        className="absolute left-10 top-10 z-10 text-white font-medium text-4xl tracking-tighter shadow-lg shadow-black"
       >
         NEXTLIFE
       </Link>

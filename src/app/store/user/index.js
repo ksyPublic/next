@@ -1,5 +1,7 @@
 import { initializeApp, getApps, FirebaseError } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
+
 import {
   getAuth,
   GithubAuthProvider,
@@ -14,6 +16,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
+  getRedirectResult,
+  signInWithRedirect,
 } from "firebase/auth";
 
 
@@ -35,6 +39,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const auth = getAuth(app);
 
 export {
   app,
@@ -54,4 +59,9 @@ export {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   FirebaseError,
+  initializeAppCheck,
+  ReCaptchaV3Provider,
+  getRedirectResult,
+  signInWithRedirect,
+  auth
 };

@@ -2,7 +2,7 @@
 
 import { useContext } from 'react'
 import { Text, Button, Icon } from '@/components'
-import { AuthContext } from '@/store/authContext'
+import { AuthContext } from '@/store/user/authContext'
 import { useRouter } from 'next/navigation'
 
 const FinishSignUpPage = () => {

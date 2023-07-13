@@ -1,24 +1,24 @@
-"use client";
-import React, { Fragment, useContext, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { AuthContext } from "@/store/authContext";
-import Header from "../header";
-import Footer from "../footer";
+'use client'
+import React, { Fragment, useContext, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { AuthContext } from '@/store/user/authContext'
+import Header from '../header'
+import Footer from '../footer'
 
 export default function DefaultLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const auth = useContext(AuthContext);
-  const user = auth.user;
-  const router = useRouter();
+  const auth = useContext(AuthContext)
+  const user = auth?.user
+  const router = useRouter()
 
   useEffect(() => {
     if (user === null) {
-      router.push("/login");
+      router.push('/login')
     }
-  }, [user, router]);
+  }, [user, router])
 
   if (user !== null) {
     return (
@@ -27,8 +27,8 @@ export default function DefaultLayout({
         <main className="flex">{children}</main>
         <Footer />
       </Fragment>
-    );
+    )
   } else {
-    return null; // 추가: user가 null인 경우 리턴값 필요
+    return null // 추가: user가 null인 경우 리턴값 필요
   }
 }
