@@ -25,14 +25,15 @@ const nextConfig = {
     ];
   },
 
-  webpack: (config, options) => {
+  webpack: (config, { isServer }) => {
     config.resolve.extensions.push(".tsx", ".ts", ".js", ".json");
+    
 
     return config;
   },
 
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: ["lh3.googleusercontent.com", 'avatars.githubusercontent.com', 'graph.facebook.com'],
   },
 };
 

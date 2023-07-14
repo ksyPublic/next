@@ -18,6 +18,7 @@ export default function DefaultLayout({
     if (user === null) {
       router.push('/login')
     }
+
   }, [user, router])
 
   if (user !== null) {

@@ -22,6 +22,10 @@ body {
   font-family: var(--font-noto);
 }
 
+.lato {
+  font-family: var(--font-lato);
+}
+
 #app {
   @import './components/checkbox';
   @import './components/input';

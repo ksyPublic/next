@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from 'firebase-admin'
 import { customInitApp } from '@/store/admin'
 import { cookies, headers } from 'next/headers'
@@ -6,7 +8,6 @@ import { NextRequest, NextResponse } from 'next/server'
 customInitApp()
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  console.log('POST')
   const authorization = headers().get('Authorization')
   if (authorization?.startsWith('Bearer ')) {
     const idToken = authorization.split('Bearer ')[1]
@@ -35,7 +36,6 @@ export async function POST(request: NextRequest, response: NextResponse) {
 }
 
 export async function GET(request: NextRequest) {
-  console.log('GET')
   const session = cookies().get('session')?.value || ''
 
   //Validate if the cookie exist in the request

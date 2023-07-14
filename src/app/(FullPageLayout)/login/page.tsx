@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import {
   signInWithPopup,
-  getAuth,
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
   FirebaseError,
-  getRedirectResult,
   auth
 } from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
@@ -21,8 +19,8 @@ import {
 } from '@/hooks/validate'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-
-const authInstance = getAuth()
+import axios from 'axios'
+const authInstance = auth
 const LoginPage = () => {
   const JoinMemberShip = '/join/membership'
   const router = useRouter()
@@ -39,6 +37,10 @@ const LoginPage = () => {
   const [loginAuthSave, setLoginAuthSave] = useState<boolean>(false)
   const loginAuthSaveUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginAuthSave(e.target.checked)
+  }
+
+  const getCodeFromUserInput = (value: string) => {
+    setCode(value)
   }
 
   const changeUserId = (value: string) => {
@@ -146,9 +148,14 @@ const LoginPage = () => {
 
   const emailLogin = async (id: string, pass: string) => {
     try {
-      await signInWithEmailAndPassword(authInstance, id, pass).then(() => {
-        router.push('/main')
-      })
+      await signInWithEmailAndPassword(authInstance, id, pass).then(
+        (userCredential) => {
+          const user = userCredential.user
+
+          console.log('???', user)
+          // router.push('/main')
+        }
+      )
     } catch (error) {
       if (error instanceof FirebaseError) {
         let errorCode = error.code
@@ -172,16 +179,22 @@ const LoginPage = () => {
     try {
       const result = await signInWithPopup(firebaseAuth, provider)
       if (result) {
-        router.push('/main')
+        const token = await result.user.getIdToken()
+        await axios
+          .post('/api/login', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              router.push('/main')
+            }
+          })
       }
     } catch (error) {
-      // 에러 처리를 합니다.
       console.error('로그인 실패', error)
     }
-  }
-
-  const getCodeFromUserInput = (value: string) => {
-    setCode(value)
   }
 
   useEffect(() => {
@@ -195,23 +208,6 @@ const LoginPage = () => {
         authInstance
       )
     )
-
-    //외부서비스 outh 가져오기 추후사용예정
-    getRedirectResult(auth).then(async (userCred) => {
-      if (!userCred) {
-        return
-      }
-      fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${await userCred.user.getIdToken()}`
-        }
-      }).then((response) => {
-        if (response.status === 200) {
-          router.push('/main')
-        }
-      })
-    })
   }, [router])
 
   return (
