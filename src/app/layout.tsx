@@ -1,6 +1,6 @@
 'use client'
 
-import './styles/globals.scss'
+import './styles/main.scss'
 import React, { useEffect } from 'react'
 import { app, getApps } from '@/store/user'
 import { AuthContextProvider } from '@/store/user/authContext'
