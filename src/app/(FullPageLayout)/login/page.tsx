@@ -55,6 +55,8 @@ const LoginPage = () => {
     } else {
       setUserType('')
     }
+
+    console.log('re-render userID', userPassword)
   }
 
   const changeUserPassword = (value: string) => {
@@ -208,8 +210,9 @@ const LoginPage = () => {
         authInstance
       )
     )
-  }, [router])
+  }, [])
 
+  console.log('re-render Checked')
   return (
     <div className="flex items-center justify-center w-full">
       <div className="login-wrap" aria-hidden />

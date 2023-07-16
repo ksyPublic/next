@@ -1,5 +1,3 @@
-"use server"
-
 import { auth } from 'firebase-admin'
 import { customInitApp } from '@/store/admin'
 import { cookies, headers } from 'next/headers'
