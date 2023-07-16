@@ -33,5 +33,9 @@
     "firebase-admin": "^11.10.0",
     "sass": "^1.63.6",
     "uuid": "^9.0.0"
-  }
+  },
+  "main": "next.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

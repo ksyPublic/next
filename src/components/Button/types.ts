@@ -1,6 +1,3 @@
-
-
-
 export type ButtonProps = {
   name?: String
   type?: 'button' | 'submit' | 'reset'

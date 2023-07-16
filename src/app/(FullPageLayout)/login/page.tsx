@@ -243,7 +243,7 @@ const LoginPage = () => {
               variant="primary"
               className={`mt-2 whitespace-nowrap`}
               name="인증번호발송"
-              onClick={(e) => phoneConfirmMsg(userId)}
+              onClick={() => phoneConfirmMsg(userId)}
             />
           </div>
 
