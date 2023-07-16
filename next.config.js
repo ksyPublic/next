@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
+const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
   },
+
+
   /** 서버 실행시 경로 설정
    */
   async redirects() {

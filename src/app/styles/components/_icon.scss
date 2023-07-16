@@ -5,20 +5,20 @@
   &.check-symbol {
     width: 64px;
     height: 64px;
-    background: url('../../images/components/check-symbol.svg') no-repeat;
+    background: url('/images/components/check-symbol.svg') no-repeat;
     background-size: 100%;
   }
 
   &.eye {
     width: 24px;
     height: 24px;
-    background: url('../../images/icon/icon-eye.svg') no-repeat;
+    background: url('/images/icon/icon-eye.svg') no-repeat;
     background-size: 100%;
 
     &-on {
       width: 24px;
       height: 24px;
-      background: url('../../images/icon/icon-eye-on.svg') no-repeat;
+      background: url('/images/icon/icon-eye-on.svg') no-repeat;
       background-size: 100%;
     }
   }

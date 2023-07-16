@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { ButtonProps } from './types'
 import { useRefObjectAsForwardedRef } from '../hooks/useRefObjectAsForwardedRef'
 import { ForwardRefComponent as PolymorphicForwardRefComponent } from '../utils/polymorphic'
-// import { Icon } from '@/components'
+import { Icon } from '@/components'
 
 const ButtonComponent = React.forwardRef(
   (
@@ -62,7 +62,7 @@ const ButtonComponent = React.forwardRef(
           onClick={onClick}
           data-value={variant}
         >
-          {/* {icon && <Icon name={icon} />} */}
+          {icon && <Icon name={icon} />}
           {name || children}
         </button>
       </div>

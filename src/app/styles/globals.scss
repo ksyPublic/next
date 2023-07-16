@@ -2,6 +2,13 @@
 @use 'tailwindcss/components';
 @use 'tailwindcss/utilities';
 
+@import './components/checkbox';
+@import './components/input';
+@import './components/messagebox.scss';
+@import './components/button.scss';
+@import './components/icon.scss';
+@import './login.scss';
+
 :root {
   /* --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -24,14 +31,4 @@ body {
 
 .lato {
   font-family: var(--font-lato);
-}
-
-#app {
-  @import './components/checkbox';
-  @import './components/input';
-  @import './components/messagebox.scss';
-  @import './components/button.scss';
-  @import './components/icon.scss';
-
-  @import './login.scss';
 }
