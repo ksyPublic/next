@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { app, getApps } from '@/store/user'
 import { AuthContextProvider } from '@/store/user/authContext'
 import { Noto_Sans_KR, Lato } from 'next/font/google'
+import StyledComponentsRegistry from './registry'
 
 const noto = Noto_Sans_KR({
   weight: '500',
@@ -34,10 +35,13 @@ export default function RootLayout({
   useEffect(() => {
     if (!getApps().length) app
   }, [])
+
   return (
     <html lang="ko">
       <body className={`${noto.variable} ${lato.variable}`} id="app">
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <StyledComponentsRegistry>
+          <AuthContextProvider>{children}</AuthContextProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   )

@@ -11,7 +11,7 @@ export default function DefaultLayout({
     <Fragment>
       <Link
         href={'/'}
-        className="absolute left-10 top-10 z-10 text-white font-bold text-4xl tracking-tighter shadow-lg shadow-black lato"
+        className="absolute left-10 top-10 z-10 text-white font-bold text-extra tracking-tighter shadow-lg shadow-black lato"
       >
         NEXTLIFE
       </Link>

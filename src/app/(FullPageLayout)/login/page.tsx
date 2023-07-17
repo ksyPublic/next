@@ -6,7 +6,7 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   FirebaseError,
-  auth
+  auth,
 } from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
 import { getProvider, firebaseAuth } from '@/store/user/auth'
@@ -20,6 +20,7 @@ import {
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
+
 const authInstance = auth
 const LoginPage = () => {
   const JoinMemberShip = '/join/membership'
@@ -39,11 +40,12 @@ const LoginPage = () => {
     setLoginAuthSave(e.target.checked)
   }
 
-  const getCodeFromUserInput = (value: string) => {
-    setCode(value)
+  const getCodeFromUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCode(event.target.value)
   }
 
-  const changeUserId = (value: string) => {
+  const changeUserId = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
     setUserId(value)
 
     if (value.length > 0) {
@@ -55,11 +57,10 @@ const LoginPage = () => {
     } else {
       setUserType('')
     }
-
-    console.log('re-render userID', userPassword)
   }
 
-  const changeUserPassword = (value: string) => {
+  const changeUserPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
     setUserPassword(value)
   }
 
@@ -153,14 +154,19 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(authInstance, id, pass).then(
         (userCredential) => {
           const user = userCredential.user
+          const uid = user.uid
 
-          console.log('???', user)
-          // router.push('/main')
+          if (uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`) {
+            router.push('/admin')
+          } else {
+            router.push('/main')
+          }
         }
       )
     } catch (error) {
       if (error instanceof FirebaseError) {
         let errorCode = error.code
+
         switch (errorCode) {
           case 'auth/wrong-password':
             setUserPassValidate(true)
@@ -212,7 +218,6 @@ const LoginPage = () => {
     )
   }, [])
 
-  console.log('re-render Checked')
   return (
     <div className="flex items-center justify-center w-full">
       <div className="login-wrap" aria-hidden />
@@ -220,7 +225,7 @@ const LoginPage = () => {
         <form>
           <Text
             as="h2"
-            className="text-2xl font-medium text-white text-left"
+            className="text-xlg font-medium text-white text-left"
             name="로그인"
           />
           <Input
@@ -236,12 +241,12 @@ const LoginPage = () => {
           >
             <Input
               placeholder="인증번호를 입력해주세요."
-              className={`mt-2 mr-2 flex-1`}
+              className={`mt-4 mr-2 flex-1`}
               onChange={getCodeFromUserInput}
             />
             <Button
               variant="primary"
-              className={`mt-2 whitespace-nowrap`}
+              className={`mt-4 whitespace-nowrap`}
               name="인증번호발송"
               onClick={() => phoneConfirmMsg(userId)}
             />
@@ -259,7 +264,7 @@ const LoginPage = () => {
           <Input
             variant="password"
             placeholder="비밀번호를 입력해주세요."
-            className={`mt-2 ${
+            className={`mt-4 ${
               userType && userType === 'phone' ? 'hidden' : 'block'
             }`}
             onChange={changeUserPassword}

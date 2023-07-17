@@ -1,9 +1,23 @@
-export type ButtonProps = {
-  name?: String
-  type?: 'button' | 'submit' | 'reset'
+export type ButtonSize = {
   size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'secondary' | String
-  className?: String
+}
+
+export type IconSize = {
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export type IconButtonProps = {
+  size?: IconSize
+  icon? : string
+  type?: 'button' | 'submit' | 'reset'
+}
+
+export type ButtonProps = {
+  name?: string
+  type?: 'button' | 'submit' | 'reset'
+  size?: ButtonSize
+  variant?: 'primary' | 'secondary' | string
+  className?: string
   disabled?: boolean
   width?: number
   icon?: string

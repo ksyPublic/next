@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Button } from '@/components'
 import { AuthContext } from '@/store/user/authContext'
 import { signOut } from '@/store/user'
@@ -32,20 +32,26 @@ export default function Header() {
     }
   }
 
+  const adminUser = useMemo(() => {
+    return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
+  }, [user])
+
   return (
     <header className="flex">
-      <div className="h-20 px-10 w-full flex items-center justify-between">
-        <h1>
-          <Link
-            href={'/'}
-            className="relative z-10 text-white font-bold text-4xl tracking-tighter shadow-lg shadow-black lato"
-          >
-            NEXTLIFE
-          </Link>
-        </h1>
+      <div className="h-32 px-10 w-full flex items-center justify-between">
+        {!adminUser && (
+          <h1>
+            <Link
+              href={'/'}
+              className="relative z-10 text-white font-bold text-extra tracking-tighter shadow-lg shadow-black lato"
+            >
+              NEXTLIFE
+            </Link>
+          </h1>
+        )}
 
         {user ? (
-          <ul className="flex items-center">
+          <ul className={`flex items-center ${adminUser ? 'ml-auto' : ''}`}>
             <li>
               <Link href="/profile">
                 <Image
@@ -58,9 +64,11 @@ export default function Header() {
               </Link>
             </li>
             <li className="mr-4 ml-2 font-medium text-white">
-              {user?.displayName
-                ? `환영합니다 ${user?.displayName} 님`
-                : `환영합니다`}
+              {adminUser
+                ? '환영합니다 관리자님'
+                : `환영합니다 ${
+                    user?.displayName ? user?.displayName + '님' : ''
+                  }`}
             </li>
             <li className="last:mr-0">
               <Button onClick={logoutHandler} size="sm">

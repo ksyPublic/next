@@ -17,7 +17,7 @@ const FinishSignUpPage = () => {
         <Icon name="check-symbol" className="mb-10" />
         <Text
           as="h2"
-          className="text-3xl font-medium text-white text-center"
+          className="text-extra font-medium text-white text-center"
           name="회원가입이 완료되었습니다."
         />
         <Text

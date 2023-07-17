@@ -20,7 +20,7 @@ const Checkbox = ({ name, position, id, checked = false, onChange }: props) => {
   }
 
   const uniqueId = id ? id : uuidv4()
-  const customCheckboxStyled = `before:content-[''] before:mr-2 before:w-4 before:h-4 before:inline-block before:bg-gray-700 before:rounded-sm flex items-center
+  const customCheckboxStyled = `before:content-[''] before:mr-4 before:w-8 before:h-8 before:inline-block before:bg-gray-700 before:rounded-sm flex items-center
   after:content-[''] after:mr-2 after:absolute after:left-0 after:top-0 after:z-10 after:w-4 after:h-4`
   return (
     <Fragment>
@@ -46,7 +46,7 @@ const Checkbox = ({ name, position, id, checked = false, onChange }: props) => {
         )}
 
         <svg
-          className="absolute w-4 h-4 left-0 top-[2px] hidden"
+          className="absolute w-8 h-8 left-0 top-0 hidden"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"

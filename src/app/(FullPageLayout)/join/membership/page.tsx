@@ -134,7 +134,7 @@ const MembershipPage = () => {
         <form>
           <Text
             as="h2"
-            className="text-2xl font-medium text-white text-left"
+            className="text-xlg font-medium text-white text-left"
             name="회원가입"
           />
           <Input
@@ -154,7 +154,7 @@ const MembershipPage = () => {
           <Input
             variant="password"
             placeholder="비밀번호"
-            className="mt-2"
+            className="mt-4"
             onChange={changeUserPassword}
             onBlur={checkUserPassword}
           />
@@ -170,7 +170,7 @@ const MembershipPage = () => {
           <Input
             type="password"
             placeholder="비밀번호 확인"
-            className="mt-2"
+            className="mt-4"
             onChange={changePasswordConfirm}
             onBlur={checkUserPassConfirm}
           />

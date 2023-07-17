@@ -1,6 +1,3 @@
-
-export type Size = 'sm' | 'md' | 'lg'
-
 export type InputProps = {
   placeholder?: string
   className?: string

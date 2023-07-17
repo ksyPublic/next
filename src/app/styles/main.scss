@@ -23,10 +23,15 @@
   }
 }
 
+html {
+  font-size: 10px;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background-color: rgba(0, 0, 0, 1);
   font-family: var(--font-noto);
+  font-size: 1.6rem;
 }
 
 .lato {
