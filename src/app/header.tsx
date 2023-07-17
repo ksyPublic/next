@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useMemo } from 'react'
-import { Button } from '@/components'
+import { Button, Input, IconButton } from '@/components'
 import { AuthContext } from '@/store/user/authContext'
 import { signOut } from '@/store/user'
 import { firebaseAuth } from '@/store/user/auth'
@@ -51,31 +51,37 @@ export default function Header() {
         )}
 
         {user ? (
-          <ul className={`flex items-center ${adminUser ? 'ml-auto' : ''}`}>
-            <li>
-              <Link href="/profile">
-                <Image
-                  className="rounded-full"
-                  alt="user profile"
-                  width={40}
-                  height={40}
-                  src={`${user?.photoURL || `/images/icon/icon-account.svg`}`}
-                />
-              </Link>
-            </li>
-            <li className="mr-4 ml-2 font-medium text-white">
-              {adminUser
-                ? '환영합니다 관리자님'
-                : `환영합니다 ${
-                    user?.displayName ? user?.displayName + '님' : ''
-                  }`}
-            </li>
-            <li className="last:mr-0">
-              <Button onClick={logoutHandler} size="sm">
-                로그아웃
-              </Button>
-            </li>
-          </ul>
+          <>
+            <div className="w-[480px]">
+              <Input placeholder="검색" size="sm" />
+              <IconButton />
+            </div>
+            <ul className={`flex items-center ${adminUser ? 'ml-auto' : ''}`}>
+              <li>
+                <Link href="/profile">
+                  <Image
+                    className="rounded-full"
+                    alt="user profile"
+                    width={40}
+                    height={40}
+                    src={`${user?.photoURL || `/images/icon/icon-account.svg`}`}
+                  />
+                </Link>
+              </li>
+              <li className="mr-4 ml-2 font-medium text-white">
+                {adminUser
+                  ? '환영합니다 관리자님'
+                  : `환영합니다 ${
+                      user?.displayName ? user?.displayName + '님' : ''
+                    }`}
+              </li>
+              <li className="last:mr-0">
+                <Button onClick={logoutHandler} size="sm">
+                  로그아웃
+                </Button>
+              </li>
+            </ul>
+          </>
         ) : (
           <ul className="flex items-center">
             <li>

@@ -39,7 +39,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["lh3.googleusercontent.com", 'avatars.githubusercontent.com', 'graph.facebook.com'],
+    domains: ["lh3.googleusercontent.com", 'avatars.githubusercontent.com', 'graph.facebook.com', 'yts.mx'],
   },
 };
 

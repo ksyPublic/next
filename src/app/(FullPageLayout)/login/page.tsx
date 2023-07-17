@@ -6,7 +6,7 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   FirebaseError,
-  auth,
+  auth
 } from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
 import { getProvider, firebaseAuth } from '@/store/user/auth'

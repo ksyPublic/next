@@ -19,6 +19,7 @@ import getElementType from '../utils/getElementType'
 const InputComponent = React.forwardRef(
   (
     {
+      size = 'md',
       placeholder,
       className,
       type = 'text',
@@ -87,17 +88,49 @@ const InputComponent = React.forwardRef(
       })
     }, [className, isFocused, value])
 
+    const InputSizeStyled = useMemo(() => {
+      switch (size) {
+        case 'sm':
+          return 'h-16'
+
+        case 'md':
+          return 'h-24'
+
+        case 'lg':
+          return 'h-32'
+
+        default:
+          'md'
+      }
+    }, [size])
+
     const InputClasses = useMemo(() => {
       return cx(
-        'w-full h-24 rounded-md text-white border-solid bg-gray-700 px-8',
+        'w-full rounded-md text-white border-solid bg-gray-700 px-8',
         {
           'pl-8 pr-20': variant === 'password'
-        }
+        },
+        InputSizeStyled
       )
-    }, [variant])
+    }, [InputSizeStyled, variant])
 
-    const LabelClasses =
-      'ui-input-label absolute block left-8 top-[18px] text-gray-400 z-1 text-sm pointer-events-none'
+    const LabelSizeStyled = useMemo(() => {
+      switch (size) {
+        case 'sm':
+          return 'top-[9px]'
+
+        case 'md':
+          return 'top-[18px]'
+
+        case 'lg':
+          return 'top-[27px]'
+
+        default:
+          'md'
+      }
+    }, [size])
+
+    const LabelClasses = `ui-input-label absolute block left-8 text-gray-400 z-1 text-sm pointer-events-none ${LabelSizeStyled}`
 
     return (
       <ElementType {...props} className={classes} ref={inputRef}>

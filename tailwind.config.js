@@ -6,6 +6,7 @@ module.exports = {
   ],
    theme: {
     fontSize: {
+      tiny: '1.2rem', // 작은 폰트 크기
       sm: '1.4rem', // 작은 폰트 크기
       base: '1.6rem', // 기본 폰트 크기
       lg: '1.8rem', // 큰 폰트 크기
@@ -18,6 +19,9 @@ module.exports = {
         noto: ['var(--font-noto)'],
         lato: ['var(--font-lato)'],
       },
+       width: {
+        custom: 'calc(25% - 2.5rem)'
+      }
     },
   },
   
