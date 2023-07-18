@@ -1,16 +1,10 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    "restrictedPath": {
-      "$other": {
-        ".read": false,
-        ".write": false
-      }
-    },
-    "allowedPath": {
-      "admin": {
-        ".read": true,
-        ".write": true
+    "admin": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
       }
     }
   }

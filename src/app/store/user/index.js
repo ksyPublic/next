@@ -1,7 +1,7 @@
 import { initializeApp, getApps, FirebaseError } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
-import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
 import {
   getAuth,
@@ -68,5 +68,6 @@ export {
   db,
   collection, 
   doc,
-  getDoc
+  getDoc,
+  getDocs
 };

@@ -1,6 +1,7 @@
 'use client'
 
 import './styles/main.scss'
+import 'react-loading-skeleton/dist/skeleton.css'
 import React, { useEffect } from 'react'
 import { app, getApps } from '@/store/user'
 import { AuthContextProvider } from '@/store/user/authContext'

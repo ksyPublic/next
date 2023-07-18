@@ -1,12 +1,9 @@
 /** @type {import('next').NextConfig} */
-const path = require('path')
 const nextConfig = {
+  swcMinify: true,
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    // turbo: {
-    //   rules: { "*.mdx": ["mdx-loader"] }
-    // },
   },
 
 

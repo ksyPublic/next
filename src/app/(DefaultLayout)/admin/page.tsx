@@ -1,13 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import { SideBar } from '@/components'
 
 const adminPage = () => {
-  return(
-    <div>
-      <SideBar />
-    </div>
-  )
+  return <div></div>
 }
 
-export default adminPage;
+export default adminPage

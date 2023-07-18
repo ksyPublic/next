@@ -7,15 +7,18 @@ export type IconSize = {
 }
 
 export type IconButtonProps = {
-  size?: IconSize
-  icon? : string
+  size?: IconSize | string
+  icon?: string
+  name?: string
+  className?: string
+  variant?: 'primary' | 'secondary' | string
   type?: 'button' | 'submit' | 'reset'
 }
 
 export type ButtonProps = {
   name?: string
   type?: 'button' | 'submit' | 'reset'
-  size?: ButtonSize
+  size?: ButtonSize | string
   variant?: 'primary' | 'secondary' | string
   className?: string
   disabled?: boolean

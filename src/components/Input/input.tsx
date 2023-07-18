@@ -150,6 +150,7 @@ const InputComponent = React.forwardRef(
         </label>
         {variant === 'password' && (
           <IconButton
+            className="absolute right-6 top-7 z-10"
             icon={`${variant && useType === 'password' ? 'eye' : 'eye-on'}`}
             type="button"
             aria-label="패스워드 보기"

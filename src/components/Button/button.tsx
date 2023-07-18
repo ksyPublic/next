@@ -49,7 +49,7 @@ const ButtonComponent = React.forwardRef(
         case 'md':
           return 'h-24 text-md'
 
-        case 'lg': 
+        case 'lg':
           return 'h-48 text-lg'
 
         default:
