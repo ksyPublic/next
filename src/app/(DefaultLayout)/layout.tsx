@@ -19,6 +19,7 @@ export default function DefaultLayout({
   const router = useRouter()
 
   const adminUser = useMemo(() => {
+    console.log('@@@', user?.uid)
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
 
