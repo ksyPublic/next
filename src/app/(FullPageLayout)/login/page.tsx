@@ -6,7 +6,8 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   FirebaseError,
-  auth
+  auth,
+  signInWithCustomToken
 } from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
 import { getProvider, firebaseAuth } from '@/store/user/auth'
@@ -20,6 +21,9 @@ import {
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
+// import { customInitApp } from '@/store/admin'
+
+// customInitApp();
 
 const authInstance = auth
 const LoginPage = () => {
@@ -84,6 +88,18 @@ const LoginPage = () => {
     }
   }
 
+  const firebaseSignIn = async (token: string) => {
+    // await signInWithCustomToken(auth, token)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code
+    //     const errorMessage = error.message
+    //     console.error(`인증 실패 : ${errorCode}:${errorMessage}`)
+    //   })
+  }
+
   const onLogin = async () => {
     switch (userType) {
       case 'email':
@@ -104,7 +120,8 @@ const LoginPage = () => {
     await confirmUi
       ?.confirm(code)
       .then((result: { user: any }) => {
-        const user = result.user
+        const token = result.user.getIdToken()
+        firebaseSignIn(token)
       })
       .catch((error: any) => {
         console.error(error)
@@ -152,10 +169,11 @@ const LoginPage = () => {
   const emailLogin = async (id: string, pass: string) => {
     try {
       await signInWithEmailAndPassword(authInstance, id, pass).then(
-        (userCredential) => {
+        async (userCredential) => {
           const user = userCredential.user
           const uid = user.uid
-
+          const token = await user.getIdToken()
+          firebaseSignIn(token)
           if (uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`) {
             router.push('/admin')
           } else {
@@ -188,6 +206,7 @@ const LoginPage = () => {
       const result = await signInWithPopup(firebaseAuth, provider)
       if (result) {
         const token = await result.user.getIdToken()
+        firebaseSignIn(token)
         await axios
           .post('/api/login', {
             headers: {

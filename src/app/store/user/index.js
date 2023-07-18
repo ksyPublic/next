@@ -19,6 +19,7 @@ import {
   RecaptchaVerifier,
   getRedirectResult,
   signInWithRedirect,
+  signInWithCustomToken,
 } from "firebase/auth";
 
 
@@ -69,5 +70,6 @@ export {
   collection, 
   doc,
   getDoc,
-  getDocs
+  getDocs,
+  signInWithCustomToken
 };

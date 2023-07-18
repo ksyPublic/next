@@ -22,7 +22,6 @@ const MainPage = () => {
     getMovies()
   }, [])
 
-  console.log('???', movies)
   return (
     <Suspense fallback={<Loading />}>
       <div className="px-10 mt-20 -mr-[2.5rem]">

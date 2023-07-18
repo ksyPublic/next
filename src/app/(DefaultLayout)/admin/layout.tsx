@@ -14,16 +14,13 @@ export default function AdminLayout({
   const auth = useContext(AuthContext)
   const user = auth?.user
 
-  console.log('????', user)
-
   const adminUser = useMemo(() => {
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
 
   const getMenu = async () => {
-    await axios.get('/api/admin').then((res) => {
-      console.log('get', res)
-    })
+    const res = await axios.get('/api/admin')
+    console.log('???', res)
   }
 
   useEffect(() => {
