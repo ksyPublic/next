@@ -2,9 +2,12 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-     // "admin" 권한이 있는 사용자만 접근 가능한 경로와 권한 설정
-    match /admin/{documentId} {
-      allow read, write: if request.auth.token.admin == true;
+    // For attribute-based access control, check for an admin claim
+    allow read: if true;
+
+    match /admin/{document} {
+      allow read: if true;
+      allow write: if request.auth.token.admin == true;
     }
 
     // // "admin" 권한이 없는 사용자의 접근을 제한하는 경로와 권한 설정
