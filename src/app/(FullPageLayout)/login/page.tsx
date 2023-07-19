@@ -15,10 +15,9 @@ import {
   validateEmail,
   validatePassword,
   toPhoneKR
-} from '@/hooks/validate'
+} from '@/utils/validate'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import axios from 'axios'
 
 const authInstance = firebaseAuth
 

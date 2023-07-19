@@ -14,14 +14,14 @@ export default function AdminLayout({
   const auth = useContext(AuthContext)
   const user = auth?.user
 
-  console.log('!!!', auth)
-
   const adminUser = useMemo(() => {
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
 
   const getMenu = async () => {
-    const res = await fetch('/api/admin', { method: 'GET' })
+    const res = await fetch('/api/admin', {
+      method: 'GET'
+    })
     if (!res.ok) {
       throw new Error(res.statusText) // 에러가 발생한 경우 처리
     }

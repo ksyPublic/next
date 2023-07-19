@@ -2,17 +2,9 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-  
-    function isAdmin() {
-      // 사용자 정의 권한 확인 로직을 구현합니다.
-      // 여기에서는 "admin" 권한을 가진 사용자의 UID를 확인합니다.
-      // 특정 사용자 UID가 "admin" 권한을 가진 경우 true를 반환합니다.
-      return request.auth.uid == 'wleVzGN1zKM5RhmgWRTIr9V5Off2';
-    }
-
      // "admin" 권한이 있는 사용자만 접근 가능한 경로와 권한 설정
-    match /ADMIN_MENU/OBDePfowJNYQV7BnhWJ5eM3fn6G2 {
-      allow read, write: if isAdmin();
+    match /admin/{documentId} {
+      allow read, write: if request.auth.token.admin == true;
     }
 
     // // "admin" 권한이 없는 사용자의 접근을 제한하는 경로와 권한 설정

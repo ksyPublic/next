@@ -7,7 +7,7 @@ import {
   validatePhoneNumber,
   validateEmail,
   validatePassword
-} from '@/hooks/validate'
+} from '@/utils/validate'
 
 import {
   getAuth,

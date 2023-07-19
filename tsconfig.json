@@ -23,7 +23,7 @@
       "@/store/*": ["./src/app/store/*"],
       "@/assets/*": ["./src/assets/*"],
       "@/components": ["./src/components"],
-      "@/hooks/*": ["./src/app/hooks/*"]
+      "@/utils/*": ["./src/app/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
