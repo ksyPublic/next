@@ -14,6 +14,8 @@ export default function AdminLayout({
   const auth = useContext(AuthContext)
   const user = auth?.user
 
+  console.log('!!!', auth)
+
   const adminUser = useMemo(() => {
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])

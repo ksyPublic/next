@@ -13,17 +13,10 @@ export default function DefaultLayout({
 }) {
   const auth = useContext(AuthContext)
   const user = auth?.user
-  const router = useRouter()
 
   const adminUser = useMemo(() => {
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
-
-  useEffect(() => {
-    if (user === null) {
-      router.push('/login')
-    }
-  }, [user, router, adminUser])
 
   const classes = cx(adminUser && 'flex w-full')
 

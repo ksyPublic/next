@@ -11,7 +11,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   }
 
   //Call the authentication endpoint
-  const responseAPI = await fetch("/api/login", {
+  const responseAPI = await fetch(`http://${process.env.NEXT_PUBLIC_DEV_HOST}/api/login`, {
+    method:'POST',
     headers: {
       Cookie: `session=${session?.value}`,
     },
@@ -27,5 +28,5 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 //Add your protected routes
 export const config = {
-  matcher: ["/login/:path*"],
+  matcher: ["/main/:path*"],
 };

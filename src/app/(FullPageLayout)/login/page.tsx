@@ -5,9 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   RecaptchaVerifier,
-  FirebaseError,
-  auth,
-  signInWithCustomToken
+  FirebaseError
 } from '@/store/user'
 import { ConfirmationResult } from 'firebase/auth'
 import { getProvider, firebaseAuth } from '@/store/user/auth'
@@ -21,11 +19,9 @@ import {
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import axios from 'axios'
-// import { customInitApp } from '@/store/admin'
 
-// customInitApp();
+const authInstance = firebaseAuth
 
-const authInstance = auth
 const LoginPage = () => {
   const JoinMemberShip = '/join/membership'
   const router = useRouter()
@@ -88,18 +84,6 @@ const LoginPage = () => {
     }
   }
 
-  const firebaseSignIn = async (token: string) => {
-    // await signInWithCustomToken(auth, token)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code
-    //     const errorMessage = error.message
-    //     console.error(`인증 실패 : ${errorCode}:${errorMessage}`)
-    //   })
-  }
-
   const onLogin = async () => {
     switch (userType) {
       case 'email':
@@ -116,12 +100,21 @@ const LoginPage = () => {
     }
   }
 
+  const goToApp = (uid: string) => {
+    if (uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`) {
+      router.push('/admin')
+    } else {
+      router.push('/main')
+    }
+  }
+
   const phoneLogin = async () => {
     await confirmUi
       ?.confirm(code)
       .then((result: { user: any }) => {
         const token = result.user.getIdToken()
-        firebaseSignIn(token)
+        const uid = result.user.uid
+        goToApp(uid)
       })
       .catch((error: any) => {
         console.error(error)
@@ -172,13 +165,7 @@ const LoginPage = () => {
         async (userCredential) => {
           const user = userCredential.user
           const uid = user.uid
-          const token = await user.getIdToken()
-          firebaseSignIn(token)
-          if (uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`) {
-            router.push('/admin')
-          } else {
-            router.push('/main')
-          }
+          goToApp(uid)
         }
       )
     } catch (error) {
@@ -203,10 +190,11 @@ const LoginPage = () => {
     const getDataValue = event.target.getAttribute('data-value')
     const provider = getProvider(getDataValue)
     try {
-      const result = await signInWithPopup(firebaseAuth, provider)
+      const result = await signInWithPopup(authInstance, provider)
       if (result) {
         const token = await result.user.getIdToken()
-        firebaseSignIn(token)
+        const uid = result.user.uid
+
         await axios
           .post('/api/login', {
             headers: {
@@ -215,7 +203,7 @@ const LoginPage = () => {
           })
           .then((response) => {
             if (response.status === 200) {
-              router.push('/main')
+              goToApp(uid)
             }
           })
       }

@@ -17,7 +17,8 @@ export function customInitApp() {
 }
 
 export {
-    getAuth
+    getAuth,
+    getApps
 }
 
 

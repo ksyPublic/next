@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const host = process.env.NODE_ENV === 'development' ? `http://${process.env.NEXT_PUBLIC_DEV_HOST}` : `https://${process.env.NEXT_PUBLIC_PRODUCTION_NAME}`
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
@@ -23,7 +24,7 @@ const nextConfig = {
     return [
       {
         source: "/:path*",
-        destination: `http://${process.env.NEXT_PUBLIC_DEV_HOST}/:path*`,
+        destination: `${host}/:path*`,
       },
     ];
   },

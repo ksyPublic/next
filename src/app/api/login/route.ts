@@ -7,6 +7,7 @@ customInitApp()
 
 export async function POST(request: NextRequest, response: NextResponse) {
   const authorization = headers().get('Authorization')
+
   if (authorization?.startsWith('Bearer ')) {
     const idToken = authorization.split('Bearer ')[1]
     const decodedToken = await auth().verifyIdToken(idToken)

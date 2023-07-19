@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db, collection, getDocs } from '@/store/user'
+import { customInitApp } from '@/store/admin'
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    try {
-        const menuCollection = collection(db, 'ADMIN_MENU');
-        const snapshot = await getDocs(menuCollection)
+    customInitApp();
 
-        const menuData = snapshot.docs.map((doc: { data: () => any; }) => (doc.data()));
+    try {
+        const snapshot = await getDocs(collection(db, 'ADMIN_MENU'));
+
+        const menuData = snapshot.forEach((doc) => {
+            console.log('???', doc.data())
+        });
 
         return NextResponse.json(menuData, { status: 200 })
     } catch (error) {
