@@ -6,11 +6,13 @@ import { NextRequest, NextResponse } from 'next/server'
 customInitApp()
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  const authorization = headers().get('Authorization')
+  const authorization = headers()
+  const header = authorization?.get('Authorization')
 
-  if (authorization?.startsWith('Bearer ')) {
-    const idToken = authorization.split('Bearer ')[1]
+  if (header?.startsWith('Bearer ')) {
+    const idToken = header.split('Bearer ')[1]
     const decodedToken = await auth().verifyIdToken(idToken)
+
 
     if (decodedToken) {
       //Generate session cookie

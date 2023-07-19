@@ -1,7 +1,7 @@
 import { initializeApp, getApps, FirebaseError } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 import { getFirestore, collection, doc, getDoc, getDocs } from 'firebase/firestore';
+// import { getAnalytics } from "firebase/analytics";
 
 import {
   getAuth,
@@ -43,6 +43,7 @@ const firebaseConfig = {
 let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 export {
   app,
   signOut,

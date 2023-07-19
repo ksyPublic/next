@@ -21,8 +21,14 @@ export default function AdminLayout({
   }, [user])
 
   const getMenu = async () => {
-    const res = await axios.get('/api/admin')
-    console.log('???', res)
+    const res = await fetch('/api/admin', { method: 'GET' })
+    if (!res.ok) {
+      throw new Error(res.statusText) // 에러가 발생한 경우 처리
+    }
+
+    const data = await res.json() // 데이터를 JSON 형식으로 변환
+
+    console.log('???', data)
   }
 
   useEffect(() => {

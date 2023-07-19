@@ -195,17 +195,16 @@ const LoginPage = () => {
         const token = await result.user.getIdToken()
         const uid = result.user.uid
 
-        await axios
-          .post('/api/login', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          .then((response) => {
-            if (response.status === 200) {
-              goToApp(uid)
-            }
-          })
+        fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((response) => {
+          if (response.status === 200) {
+            goToApp(uid)
+          }
+        })
       }
     } catch (error) {
       console.error('로그인 실패', error)
