@@ -11,9 +11,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const isAdmin = decodedClaims.admin;
 
   if (isAdmin) {
-    const querySnapshot = await getDocs(collection(db, "admin"));
     try {
-      const menuData = querySnapshot.forEach(doc => doc.data());
+    const querySnapshot = await getDocs(collection(db, "admin"));
+
+     const menuData: any[] = [];
+      querySnapshot.forEach(doc => {
+        menuData.push(doc.data().menu);
+      });
       return NextResponse.json(menuData, { status: 200 });
     } catch (error) {
       console.error("Error in GET /api/admin:", error);

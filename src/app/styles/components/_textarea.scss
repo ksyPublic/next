@@ -1,0 +1,12 @@
+.ui-textarea {
+  width: 100%;
+  textarea {
+    border: 0.1rem solid rgb(163, 163, 163);
+    color: rgb(156 163 175);
+    background: rgb(55, 65, 81);
+    resize: none;
+    padding: 2rem;
+    display: flex;
+    width: 100%;
+  }
+}

@@ -23,7 +23,9 @@ export default function DefaultLayout({
   if (user !== null) {
     return (
       <div className={classes}>
-        <div className="flex flex-col w-full">
+        <div
+          className={`flex flex-col w-full ${adminUser ? 'pl-[24.0rem]' : ''}`}
+        >
           <Header admin={adminUser} />
           <main className="flex">{children}</main>
           <Footer />

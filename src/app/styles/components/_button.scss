@@ -8,4 +8,25 @@
     padding-bottom: 2px;
     height: 36px;
   }
+
+  &-icon {
+    display: flex;
+    align-items: center;
+
+    .ui-icon {
+      margin-left: auto;
+    }
+  }
+
+  &-group {
+    display: flex;
+    align-items: center;
+    > div + div {
+      margin-left: 0.8rem;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+  }
 }

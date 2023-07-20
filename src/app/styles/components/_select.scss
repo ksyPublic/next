@@ -1,0 +1,12 @@
+.ui-select {
+  -webkit-appearance: none;
+  height: 6rem;
+  padding: 0 4rem 0 2rem;
+  width: 100%;
+  border: 0.1rem solid rgb(163, 163, 163);
+  color: rgb(156 163 175);
+
+  background: rgb(55, 65, 81) url('/images/icon/icon-select.svg') no-repeat
+    right 2rem top 50%;
+  background-size: 2.4rem 2.4rem;
+}

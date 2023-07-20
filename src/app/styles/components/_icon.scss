@@ -3,23 +3,37 @@
   display: inline-block;
 
   &.check-symbol {
-    width: 64px;
-    height: 64px;
+    width: 6.4rem;
+    height: 6.4rem;
     background: url('/images/components/check-symbol.svg') no-repeat;
     background-size: 100%;
   }
 
   &.eye {
-    width: 24px;
-    height: 24px;
+    width: 2.4rem;
+    height: 2.4rem;
     background: url('/images/icon/icon-eye.svg') no-repeat;
     background-size: 100%;
 
     &-on {
-      width: 24px;
-      height: 24px;
+      width: 2.4rem;
+      height: 2.4rem;
       background: url('/images/icon/icon-eye-on.svg') no-repeat;
       background-size: 100%;
     }
+  }
+
+  &.arrow {
+    width: 2.4rem;
+    height: 2.4rem;
+    background: url('/images/icon/icon-arrow.svg') no-repeat;
+    background-size: 100%;
+  }
+
+  &.none {
+    width: 6.4rem;
+    height: 6.4rem;
+    background: url('/images/icon/icon-nonedata.svg') no-repeat;
+    background-size: 100%;
   }
 }

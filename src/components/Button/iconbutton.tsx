@@ -33,6 +33,9 @@ const IconButton = forwardRef(
         case 'secondary':
           return 'bg-gray-800 hover:bg-gray-900 text-gray-400 font-medium py-2 px-4 rounded transition ease-in-out'
 
+        case 'accordion':
+          return 'bg-gray-900 hover:bg-gray-800 text-white text-start font-medium py-2 px-4 rounded transition ease-in-out'
+
         case 'Google':
           return 'bg-gray-800 hover:bg-gray-700 text-gray-400 font-medium py-3 px-4 h-20 rounded transition ease-in-out'
 

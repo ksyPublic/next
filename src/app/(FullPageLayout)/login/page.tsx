@@ -107,13 +107,26 @@ const LoginPage = () => {
     }
   }
 
+  const setCookiesToApp = (token: string, uid: string) => {
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (response.status === 200) {
+        goToApp(uid)
+      }
+    })
+  }
+
   const phoneLogin = async () => {
     await confirmUi
       ?.confirm(code)
       .then((result: { user: any }) => {
         const token = result.user.getIdToken()
         const uid = result.user.uid
-        goToApp(uid)
+        setCookiesToApp(token, uid)
       })
       .catch((error: any) => {
         console.error(error)
@@ -163,8 +176,9 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(authInstance, id, pass).then(
         async (userCredential) => {
           const user = userCredential.user
+          const token = await userCredential.user.getIdToken()
           const uid = user.uid
-          goToApp(uid)
+          setCookiesToApp(token, uid)
         }
       )
     } catch (error) {
@@ -193,17 +207,7 @@ const LoginPage = () => {
       if (result) {
         const token = await result.user.getIdToken()
         const uid = result.user.uid
-
-        fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then((response) => {
-          if (response.status === 200) {
-            goToApp(uid)
-          }
-        })
+        setCookiesToApp(token, uid)
       }
     } catch (error) {
       console.error('로그인 실패', error)

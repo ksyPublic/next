@@ -1,0 +1,45 @@
+.control-line {
+  display: flex;
+  width: 100%;
+
+  + .grid {
+    margin-top: 1.6rem;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+
+    .control-column.child {
+      justify-content: flex-end;
+    }
+
+    .control-column.controller {
+      margin-right: auto;
+    }
+  }
+
+  .control-column {
+    display: flex;
+    align-items: center;
+
+    &.child {
+      flex: 1;
+    }
+
+    &.controller {
+      margin-left: auto;
+    }
+  }
+
+  &.start {
+    align-items: flex-start;
+  }
+
+  &.center {
+    align-items: center;
+  }
+
+  &.end {
+    align-items: flex-end;
+  }
+}

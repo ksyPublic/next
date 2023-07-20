@@ -1,16 +1,17 @@
 'use client'
 
-import { useEffect, useState, useMemo, useContext } from 'react'
-import axios from 'axios'
+import { useEffect, useState, useMemo, useContext, useCallback } from 'react'
 import { SideBar } from '@/components'
+import type { MenuItem } from '@/components'
 import { AuthContext } from '@/store/user/authContext'
 
-export default function AdminLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+type AdminLayoutProps = {
+  children?: React.ReactNode
+}
+
+export default function AdminLayout({ children }: AdminLayoutProps) {
   const [originUser, setOriginUser] = useState<object | null>()
+  const [menuData, setMenuData] = useState<Array<MenuItem>>([])
   const auth = useContext(AuthContext)
   const user = auth?.user
 
@@ -18,7 +19,7 @@ export default function AdminLayout({
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
 
-  const getMenu = async () => {
+  const getMenu = useCallback(async () => {
     const token = user?.getIdToken()
     const res = await fetch('/api/admin', {
       method: 'GET',
@@ -30,19 +31,21 @@ export default function AdminLayout({
       throw new Error(res.statusText) // 에러가 발생한 경우 처리
     }
 
-    console.log('???', res)
-  }
+    if (res) {
+      setMenuData(await res.json())
+    }
+  }, [user])
 
   useEffect(() => {
     if (adminUser) {
       setOriginUser(user)
       getMenu()
     }
-  }, [adminUser, user])
+  }, [adminUser, user, getMenu])
 
   return (
     <>
-      {adminUser && <SideBar defaultOpen user={originUser} />}
+      {adminUser && <SideBar defaultOpen user={originUser} data={menuData} />}
       {children}
     </>
   )

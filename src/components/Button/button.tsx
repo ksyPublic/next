@@ -25,10 +25,16 @@ const ButtonComponent = React.forwardRef(
     const colorStyled = useMemo(() => {
       switch (variant) {
         case 'primary':
-          return 'bg-blue-800 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition ease-in-out'
+          return 'bg-blue-800 hover:bg-blue-700 text-white font-medium rounded transition ease-in-out'
 
         case 'secondary':
-          return 'bg-gray-500 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded transition ease-in-out'
+          return 'hover:bg-gray-700 border-[0.1rem] border-gray-600 text-white font-medium rounded transition ease-in-out'
+
+        case 'tertiary':
+          return 'bg-white hover:bg-gray-200 text-gray-700 font-medium rounded transition ease-in-out'
+
+        case 'accordion':
+          return 'bg-gray-900 hover:bg-gray-800 text-white text-start font-medium rounded transition ease-in-out'
 
         case 'Google':
           return 'bg-gray-800 hover:bg-gray-700 text-gray-400 font-medium py-3 px-4 h-20 rounded transition ease-in-out'
@@ -44,13 +50,13 @@ const ButtonComponent = React.forwardRef(
     const sizeStyled = useMemo(() => {
       switch (size) {
         case 'sm':
-          return 'h-12 text-sm'
+          return 'h-12 text-sm py-2 px-4'
 
         case 'md':
-          return 'h-24 text-md'
+          return 'h-24 text-lg py-2 px-10'
 
         case 'lg':
-          return 'h-48 text-lg'
+          return 'h-48 text-xlg'
 
         default:
           'md'

@@ -35,7 +35,7 @@ const InputComponent = React.forwardRef(
     const [value, setValue] = useState<string>('')
     const [useType, setUseType] = useState<string>(variant ? variant : type)
     const [isFocused, setIsFocused] = useState(false)
-    const [uniqueId, setUniqueId] = useState(id)
+    const [uniqueId, setUniqueId] = useState<string>('')
 
     const inputRef = useRef<HTMLInputElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, inputRef)
@@ -71,9 +71,7 @@ const InputComponent = React.forwardRef(
     }
 
     useEffect(() => {
-      if (!id) {
-        setUniqueId(uuidv4().slice(0, 8))
-      }
+      !id ? setUniqueId(uuidv4().slice(0, 8)) : setUniqueId(id)
 
       value === ''
         ? inputRef?.current?.classList.remove('is-focused')
@@ -131,7 +129,6 @@ const InputComponent = React.forwardRef(
     }, [size])
 
     const LabelClasses = `ui-input-label absolute block left-8 text-gray-400 z-1 text-sm pointer-events-none ${LabelSizeStyled}`
-
     return (
       <ElementType {...props} className={classes} ref={inputRef}>
         <input
@@ -145,9 +142,7 @@ const InputComponent = React.forwardRef(
           className={InputClasses}
           autoComplete={'off'}
         />
-        <label htmlFor={uniqueId} className={LabelClasses}>
-          {placeholder}
-        </label>
+        <span className={LabelClasses}>{placeholder}</span>
         {variant === 'password' && (
           <IconButton
             className="absolute right-6 top-7 z-10"

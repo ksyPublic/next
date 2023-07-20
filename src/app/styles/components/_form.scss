@@ -1,0 +1,36 @@
+.ui-form {
+  margin-top: 2rem;
+  padding: 3.2rem 4rem;
+  border-radius: 1rem;
+  &-row {
+    display: flex;
+    width: 100%;
+    &:first-child {
+      margin-top: 0;
+    }
+
+    margin-top: 1.6rem;
+  }
+  &-column {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    + .ui-form-column {
+      margin-left: 2rem;
+    }
+
+    .ui-label {
+      margin-right: 2rem;
+    }
+
+    .ui-label {
+      min-width: 14rem;
+      color: rgb(163, 163, 163);
+    }
+
+    .ui-input {
+      border: 0.1rem solid rgb(163, 163, 163);
+    }
+  }
+}

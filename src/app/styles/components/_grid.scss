@@ -1,0 +1,47 @@
+.grid {
+  position: relative;
+  width: 100%;
+  border: 0.1rem solid rgb(55 65 81);
+  border-radius: 0.8rem;
+
+  + .grid {
+    margin-top: 2rem;
+  }
+
+  &.only-column {
+    display: flex;
+  }
+
+  &.bidirectional {
+    .grid-row + .grid-row {
+      border-top: 0.1rem solid rgb(55 65 81);
+    }
+
+    .grid-column + .grid-column {
+      border-left: 0.1rem solid rgb(55 65 81);
+    }
+  }
+
+  &.vertical {
+    .grid-row + .grid-row {
+      border-top: 0.1rem solid rgb(55 65 81);
+    }
+  }
+
+  &.horizontal {
+    .grid-column + .grid-column {
+      border-left: 0.1rem solid rgb(55 65 81);
+    }
+  }
+
+  &-row {
+    display: flex;
+    width: 100%;
+  }
+
+  &-column {
+    width: 100%;
+    padding: 2rem;
+    background-color: rgb(55 65 81);
+  }
+}
