@@ -36,4 +36,11 @@
     background: url('/images/icon/icon-nonedata.svg') no-repeat;
     background-size: 100%;
   }
+
+  &.delete {
+    width: 2.4rem;
+    height: 2.4rem;
+    background: url('/images/icon/icon-delete.svg') no-repeat;
+    background-size: 100%;
+  }
 }

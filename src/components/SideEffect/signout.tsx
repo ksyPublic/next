@@ -18,7 +18,7 @@ const SignOut = ({ className, size, name, variant }: IconButtonProps) => {
       )
 
       if (response.status === 200) {
-        router.push('./login')
+        router.push('/login')
       }
     } catch (error) {
       console.error('Logout failed', error)
