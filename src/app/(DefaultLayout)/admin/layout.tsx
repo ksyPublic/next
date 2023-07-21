@@ -1,13 +1,16 @@
 'use client'
-
 import { useEffect, useState, useMemo, useContext, useCallback } from 'react'
-import { SideBar } from '@/components'
 import type { MenuItem } from '@/components'
 import { AuthContext } from '@/store/user/authContext'
+import dynamic from 'next/dynamic'
 
 type AdminLayoutProps = {
   children?: React.ReactNode
 }
+
+const SideBarComponent = dynamic(() =>
+  import('@/components').then((mod) => mod.SideBar)
+)
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const [originUser, setOriginUser] = useState<object | null>()
@@ -45,7 +48,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   return (
     <>
-      {adminUser && <SideBar defaultOpen user={originUser} data={menuData} />}
+      {adminUser && (
+        <SideBarComponent defaultOpen user={originUser} data={menuData} />
+      )}
       {children}
     </>
   )

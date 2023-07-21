@@ -1,5 +1,4 @@
-import Select from './select';
+import {SelectComponent} from './select'
+export type {SelectProps} from './types'
 
-export {
-  Select
-};
+export const Select = Object.assign(SelectComponent)

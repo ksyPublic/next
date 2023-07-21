@@ -5,7 +5,7 @@ import { SideBarNav } from '@/components'
 import cx from 'clsx'
 import Image from 'next/image'
 
-const SideBar = ({ data, defaultOpen = false, user }: SideBarProps) => {
+const SideBar = ({ data, defaultOpen = false, user, ...props }: SideBarProps) => {
   const innerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const SideBar = ({ data, defaultOpen = false, user }: SideBarProps) => {
   )
 
   return (
-    <div className={classes} ref={innerRef}>
+    <div className={classes} ref={innerRef} {...props}>
       <div className="relative h-full">
         {user && (
           <div className="side-user pt-10">

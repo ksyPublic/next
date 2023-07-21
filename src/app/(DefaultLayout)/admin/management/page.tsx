@@ -18,13 +18,13 @@ const ManagementPage = () => {
   return (
     <Segment className="w-full px-10 mt-4">
       <ControlLine
-        content={<Text className="text-xlg text-white" name="영화관리" />}
+        content={<Text className="text-xlg text-white" name="컨텐츠 관리" />}
         controls={
           <ButtonGroup>
             <Button
               size="sm"
               variant="secondary"
-              onClick={() => router.push('/admin/management/addmovie')}
+              onClick={() => router.push('/admin/management/addcontents')}
             >
               등록
             </Button>

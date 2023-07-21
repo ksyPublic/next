@@ -1,12 +1,10 @@
 
 export type SelectProps = {
-  children?:React.ReactNode;
+  placeholder?:string;
   className?: string;
+  id?:string;
+  selectOptions?: { [index: string]: string };
+  value?:string;
+  disabled?:boolean;
 }
 
-export type SelectOptionProps = {
-  children?:React.ReactNode;
-  className?:string;
-  value?:string;
-  selected?:boolean;
-}

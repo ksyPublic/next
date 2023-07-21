@@ -21,6 +21,9 @@ module.exports = {
       },
        width: {
         custom: 'calc(25% - 2.5rem)'
+      },
+      height:{
+        menu: 'calc(100% - 16.6rem)'
       }
     },
   },

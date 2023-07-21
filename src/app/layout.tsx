@@ -7,6 +7,7 @@ import { app, getApps } from '@/store/user'
 import { AuthContextProvider } from '@/store/user/authContext'
 import { Noto_Sans_KR, Lato } from 'next/font/google'
 import StyledComponentsRegistry from './registry'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 const noto = Noto_Sans_KR({
   weight: '500',
@@ -41,7 +42,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${noto.variable} ${lato.variable}`} id="app">
         <StyledComponentsRegistry>
-          <AuthContextProvider>{children}</AuthContextProvider>
+          <AuthContextProvider>
+              <SkeletonTheme baseColor="rgb(55, 65, 81)" highlightColor="rgb(17, 24, 39)">
+                {children}
+              </SkeletonTheme>
+            </AuthContextProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
