@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo, useContext, useCallback } from 'react'
 import type { MenuItem } from '@/components'
 import { AuthContext } from '@/store/user/authContext'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 
 type AdminLayoutProps = {
   children?: React.ReactNode
@@ -17,7 +18,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [menuData, setMenuData] = useState<Array<MenuItem>>([])
   const auth = useContext(AuthContext)
   const user = auth?.user
-
+  const router = useRouter()
   const adminUser = useMemo(() => {
     return user?.uid === `${process.env.NEXT_PUBLIC_ADMIN_USER}`
   }, [user])
@@ -31,13 +32,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       }
     })
     if (!res.ok) {
+      router.push('/login')
       throw new Error(res.statusText) // 에러가 발생한 경우 처리
     }
 
     if (res) {
       setMenuData(await res.json())
     }
-  }, [user])
+  }, [router, user])
 
   useEffect(() => {
     if (adminUser) {
