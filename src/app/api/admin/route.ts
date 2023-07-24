@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const decodedClaims = await validateSession(req);
   
   // 유저의 클레임 정보에서 admin 클레임을 확인
-  const isAdmin = decodedClaims.admin;
+  const isAdmin = decodedClaims?.admin;
 
   if (isAdmin) {
     try {
