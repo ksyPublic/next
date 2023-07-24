@@ -28,6 +28,7 @@ const InputComponent = React.forwardRef(
       onFocus,
       id,
       variant,
+      maxLength,
       ...props
     },
     forwardedRef
@@ -129,13 +130,21 @@ const InputComponent = React.forwardRef(
     }, [size])
 
     const LabelClasses = `ui-input-label absolute block left-8 text-gray-400 z-1 text-sm pointer-events-none ${LabelSizeStyled}`
+
+    const maxLengthCheck = (value: string) => {
+      return value && maxLength && value.length > maxLength
+        ? String(value).slice(0, maxLength)
+        : value
+    }
+
     return (
       <ElementType {...props} className={classes} ref={inputRef}>
         <input
           {...props}
           id={uniqueId}
-          type={useType}
-          value={value}
+          type={useType || type}
+          value={maxLength ? maxLengthCheck(value) : value}
+          maxLength={maxLength}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}

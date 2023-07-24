@@ -2,7 +2,7 @@
 const host = process.env.NODE_ENV === 'development' ? `http://${process.env.NEXT_PUBLIC_DEV_HOST}` : `https://${process.env.NEXT_PUBLIC_PRODUCTION_NAME}`
 const nextConfig = {
   swcMinify: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   experimental: {
     appDir: true,
   },

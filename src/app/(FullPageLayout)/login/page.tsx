@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const authInstance = firebaseAuth
-
 const LoginPage = () => {
   const JoinMemberShip = '/join/membership'
   const router = useRouter()

@@ -1,3 +1,5 @@
+import {DropZone} from './SideEffect/dropzone'
+
 export * from './Button';
 export * from './Input';
 export * from './Icon';
@@ -17,7 +19,10 @@ export {default as Label} from './label';
 export {default as Textarea} from './textarea';
 
 export {default as SignOut} from './SideEffect/signout';
-export {default as DropZone} from './SideEffect/dropzone';
+
+export {
+  DropZone
+}
 
 
 

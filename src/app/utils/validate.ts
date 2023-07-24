@@ -22,11 +22,14 @@ function toPhoneKR(phoneNumber:string) {
   return '+82' + phoneNumber.substring(1);
 }
 
-
+async function strWithoutSpaces(str:string) {
+  return str.replace(/\s+/g, '').replace(/\./g, '');
+}
 
 export {
   validateEmail,
   validatePhoneNumber,
   validatePassword,
   toPhoneKR,
+  strWithoutSpaces,
 }

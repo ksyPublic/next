@@ -26,3 +26,13 @@ export enum AgeRating {
   UNRATED = '등급 미정',
 }
 
+export enum ContentType {
+    MOVIE = '영화',
+    DRAMA_TV_SHOW = '드라마/TV 쇼',
+    CHILDRENS_PROGRAM = '아동용 프로그램',
+    SPORTS = '스포츠',
+    MUSIC_AND_MUSIC_VIDEO = '음악 및 뮤직비디오',
+    DOCUMENTARY = '다큐멘터리',
+    ORIGINAL_CONTENT = '오리지널 콘텐츠',
+}
+

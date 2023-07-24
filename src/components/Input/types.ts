@@ -8,5 +8,6 @@ export type InputProps = {
   type?: string
   id?: string
   variant?: string,
-  size?:InputSize
+  size?:InputSize,
+  maxLength?:number
 }

@@ -13,12 +13,14 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
+let app;
+// Check if any Firebase app already initialized
 if (!getApps().length) {
   // Initialize Firebase
-  initializeApp(firebaseConfig);
-}
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0]; // use the already initialized app
+} 
 
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);

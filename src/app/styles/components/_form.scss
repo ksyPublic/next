@@ -14,14 +14,17 @@
   &-column {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     + .ui-form-column {
       margin-left: 2rem;
     }
 
     .ui-label {
+      height: 6.2rem;
       margin-right: 2rem;
+      display: flex;
+      align-items: center;
     }
 
     .ui-label {
