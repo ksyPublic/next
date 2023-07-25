@@ -19,25 +19,35 @@ type DropZoneProps = {
   storageKey?: string
   placeholder?: string
   className?: string
+  disabled?: boolean
 }
 
 const DropZone = React.forwardRef(
-  ({ storageKey, placeholder, className, ...props }, forwardedRef) => {
+  (
+    { storageKey, placeholder, className, disabled, ...props },
+    forwardedRef
+  ) => {
     const [fileInfo, setFileInfo] = useState<{
       name: string
       size: number
       type: string
     } | null>() // 상태 추가
     const [downloadUrl, setDownloadUrl] = useState<string>('') // 상태 추가
+    const dropType = (params: string) => {
+      if (params.match(/image.*/)) {
+        return 'image'
+      } else if (params.match(/video.*/)) {
+        return 'video'
+      }
+    }
+
     const onDrop = useCallback(
       async (acceptedFiles: any) => {
         // 파일을 Cloud Storage에 업로드합니다.
-        const storage = getStorage()
-        const storageRef = ref(
-          storage,
-          `${storageKey}/${acceptedFiles[0].name}`
-        )
         const file = acceptedFiles[0] // 단일 파일 업로드만 지원하는 예
+        const typeName = dropType(file.type)
+        const storage = getStorage()
+        const storageRef = ref(storage, `${storageKey}/${typeName}`)
 
         const uploadTask = uploadBytesResumable(storageRef, file)
 
@@ -85,7 +95,8 @@ const DropZone = React.forwardRef(
 
     const classes = cx(
       'ui-dropzone w-full bg-gray-700',
-      `${className ? className : ''}`
+      `${className ? className : ''}`,
+      `${disabled ? 'pointer-events-none' : 'pointer-events-auto'}`
     )
     const { getRootProps, getInputProps } = useDropzone({ onDrop })
 

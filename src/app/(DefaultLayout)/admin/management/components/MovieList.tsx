@@ -2,7 +2,15 @@ import React from 'react'
 import { DataTable } from '@/components'
 import { MovieListProps, MovieValue } from './types'
 import Link from 'next/link'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject
+} from 'firebase/storage'
 
+const storage = getStorage()
 const MovieList = ({ data }: MovieListProps) => {
   return (
     <DataTable.Wrapper caption="등록된 컨텐츠 목록">
@@ -28,18 +36,29 @@ const MovieList = ({ data }: MovieListProps) => {
             Object.entries(data).map(
               ([key, value]: [string, MovieValue], i: number) => {
                 if (!value) return
+                const origin = value?.titleKR
+                  ?.replace(/\s+/g, '')
+                  .replace(/\./g, '')
+                const storageRef = ref(storage, `images/poster/${origin}.jpg`)
+                getDownloadURL(storageRef).then((res) => {
+                  console.log('!!!', res)
+                })
+
                 return (
                   <tr key={key}>
                     <td>{i + 1}</td>
                     <td className="!text-left">
                       <Link
                         href={`/admin/management/${key}`}
-                        className="hover:underline"
+                        className="hover:underline flex items-center"
                       >
-                        <span className="block">{value.titleKR}</span>
-                        <span className="block lato text-sm mt-2">
-                          {value.titleEN}
-                        </span>
+                        <span className="shrink-0"></span>
+                        <div className="flex items-center">
+                          <span className="block">{value.titleKR}</span>
+                          <span className="block lato text-sm mt-2">
+                            {value.titleEN}
+                          </span>
+                        </div>
                       </Link>
                     </td>
                     <td>{value.rating}</td>
