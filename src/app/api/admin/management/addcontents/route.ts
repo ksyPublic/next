@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
 
   const { contentType, titleKR, titleEN, director, cast, genre, rating, release, summary, trailer, addKey } = formData as ContentsDataProps;
 
-  console.log('!!!!', addKey)
   const getKey = addKey?.replace(/\s+/g, '').replace(/\./g, '')
   const newPostRef = push(child(ref(database), 'contents'));
   const newPostKey = newPostRef.key;

@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     appDir: true,
+    esmExternals: false,
   },
 
 
