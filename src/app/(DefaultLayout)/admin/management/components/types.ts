@@ -1,10 +1,11 @@
 export type MovieListProps = {
- list: {
-    titleKR?: string; 
-    rating?: string; 
-    release?: string; 
-    addDate?: string; 
-  }[];
-}
+  data?: MovieValue[];
+};
 
-
+export type MovieValue = {
+  titleKR?: string;
+  titleEN?:string;
+  rating?: string;
+  release?: string;
+  addDate?: string;
+};

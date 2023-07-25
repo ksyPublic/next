@@ -13,7 +13,8 @@ import {
   Select,
   Textarea,
   DropZone,
-  MessageBox
+  MessageBox,
+  Datepicker
 } from '@/components'
 import { useForm, Resolver } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
@@ -133,10 +134,11 @@ const resolver: Resolver<FormValues> = async (values) => {
 
 const AddMoviePage = () => {
   const router = useRouter()
-  const [posterKey, setPosterKey] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('2023.01.01')
+  const [uniqueKey, setUniqueKey] = useState<string>('')
   const [disabled, setDisabled] = useState<boolean>(true)
   const onTitleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPosterKey(event.target.value)
+    setUniqueKey(event.target.value)
 
     if (event.target.value.length > 0) {
       setDisabled(false)
@@ -151,7 +153,7 @@ const AddMoviePage = () => {
       const res = await axios.post(
         '/api/admin/management/addcontents',
         {
-          addKey: posterKey,
+          addKey: uniqueKey,
           titleKR: data.titleKR,
           titleEN: data.titleEN,
           director: data.director,
@@ -181,7 +183,6 @@ const AddMoviePage = () => {
     formState: { errors }
   } = useForm<FormValues>({ resolver })
 
- 
   return (
     <Segment className="w-full px-10 mt-4">
       <ControlLine
@@ -299,13 +300,12 @@ const AddMoviePage = () => {
           <Form.Column>
             <Label name="개봉년도" htmlFor="release" />
             <div className="flex flex-col w-full">
-              <Input
+              <Datepicker
                 {...register('release')}
-                type="number"
-                placeholder="개봉년도를 입력해주세요."
-                className="w-full"
-                id="release"
-                maxLength="4"
+                value={startDate}
+                onChange={(date) => {
+                  setStartDate(date)
+                }}
               />
               {errors?.release && (
                 <MessageBox text={errors.release.message} error />
@@ -346,7 +346,7 @@ const AddMoviePage = () => {
               <DropZone
                 disabled={disabled}
                 placeholder="포스터 이미지를 넣어주세요."
-                storageKey={`/images/poster/${posterKey}`}
+                storageKey={`/images/poster/${uniqueKey}`}
               />
             </div>
           </Form.Column>
@@ -354,10 +354,20 @@ const AddMoviePage = () => {
         <Form.Row>
           <Form.Column>
             <Label name="트레일러" htmlFor="trailer" />
-            <Input
-              placeholder="트레일러 링크를 입력해주세요."
-              className="w-full"
-              id="trailer"
+            <DropZone
+              disabled={disabled}
+              placeholder="트레일러 영상을 넣어주세요."
+              storageKey={`/video/trailer/${uniqueKey}`}
+            />
+          </Form.Column>
+        </Form.Row>
+        <Form.Row>
+          <Form.Column>
+            <Label name="컨텐츠" htmlFor="videos" />
+            <DropZone
+              disabled={disabled}
+              placeholder="컨텐츠 영상을 넣어주세요."
+              storageKey={`/video/content/${uniqueKey}`}
             />
           </Form.Column>
         </Form.Row>

@@ -23,10 +23,16 @@ export async function POST(req: NextRequest) {
   const getKey = addKey?.replace(/\s+/g, '').replace(/\./g, '')
   const newPostRef = push(child(ref(database), 'contents'));
   const newPostKey = newPostRef.key;
+  // 현재 날짜를 얻어서 YYYY-MM-DD 형식의 문자열로 변환
+  const date = new Date();
+  const addDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
   if (newPostKey) {
     const updates: Record<string, ContentsDataProps> = {};
-    updates['/contents/' + 'data' + `/${getKey}`] = formData;
+    updates['/contents/' + 'data' + `/${getKey}`] = {
+      ...formData,
+      addDate
+    };
     
     await update(ref(database), updates);
     return NextResponse.json({ message: 'Success' }, {status:200});

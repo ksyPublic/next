@@ -1,9 +1,9 @@
 import React from 'react'
 import { DataTable } from '@/components'
-import { MovieListProps } from './types'
+import { MovieListProps, MovieValue } from './types'
 import Link from 'next/link'
 
-const MovieList = ({ list }: MovieListProps) => {
+const MovieList = ({ data }: MovieListProps) => {
   return (
     <DataTable.Wrapper caption="등록된 컨텐츠 목록">
       <colgroup>
@@ -24,25 +24,31 @@ const MovieList = ({ list }: MovieListProps) => {
       </DataTable.Head>
       <DataTable.Body>
         <>
-          {Object.entries(list).map(([key, value], i) => {
-            if (!value) return
-            return (
-              <tr key={key}>
-                <td>{i + 1}</td>
-                <td className="!text-left">
-                  <Link
-                    href={`/admin/management/${key}`}
-                    className="hover:underline"
-                  >
-                    {value.titleKR}
-                  </Link>
-                </td>
-                <td>{value.rating}</td>
-                <td>{value.release}</td>
-                <td>{value.addDate}</td>
-              </tr>
-            )
-          })}
+          {data &&
+            Object.entries(data).map(
+              ([key, value]: [string, MovieValue], i: number) => {
+                if (!value) return
+                return (
+                  <tr key={key}>
+                    <td>{i + 1}</td>
+                    <td className="!text-left">
+                      <Link
+                        href={`/admin/management/${key}`}
+                        className="hover:underline"
+                      >
+                        <span className="block">{value.titleKR}</span>
+                        <span className="block lato text-sm mt-2">
+                          {value.titleEN}
+                        </span>
+                      </Link>
+                    </td>
+                    <td>{value.rating}</td>
+                    <td>{value.release}</td>
+                    <td>{value.addDate}</td>
+                  </tr>
+                )
+              }
+            )}
         </>
       </DataTable.Body>
     </DataTable.Wrapper>

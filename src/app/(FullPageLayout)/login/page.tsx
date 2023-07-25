@@ -151,14 +151,14 @@ const LoginPage = () => {
 
             // 새로운 RecaptchaVerifier 인스턴스 생성
             const newRecaptchaVerifier = new RecaptchaVerifier(
+              authInstance,
               'recaptcha-container',
-              {
+               {
                 size: 'invisible',
                 callback: (response: any) => {
                   // reCAPTCHA 검증 성공 시 실행할 콜백 함수
                 }
               },
-              authInstance
             )
 
             // 기존의 recaptchaVerifier.current에 새로운 인스턴스 할당
@@ -216,12 +216,12 @@ const LoginPage = () => {
   useEffect(() => {
     setRecaptchaVerifier(
       new RecaptchaVerifier(
+        authInstance,
         'recaptcha-container',
         {
           size: 'invisible',
           callback: (response: any) => {}
-        },
-        authInstance
+        }
       )
     )
   }, [])

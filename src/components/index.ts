@@ -7,6 +7,7 @@ export * from './Layout';
 export * from './Grid';
 export * from './Form';
 export * from './Select';
+export * from './DatePicker';
 
 export { default as Text } from './text'
 export { default as Checkbox } from './checkbox'
