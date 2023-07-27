@@ -4,10 +4,11 @@ import { collection, getDocs, getFirestore } from '@/store/client';
 const db = getFirestore();
 export async function GET(req: NextRequest, res: NextResponse) {
 	try {
-		const querySnapshot = await getDocs(collection(db, 'contents/data'));
+		const querySnapshot = await getDocs(collection(db, 'contents'));
 		const contentsData: any[] = [];
 		querySnapshot.forEach((doc) => {
-			contentsData.push(doc.data());
+			const data = doc.data();
+			contentsData.push({ ...data.setData, formattedDate: data.formattedDate });
 		});
 		return NextResponse.json(contentsData, { status: 200 });
 	} catch (error) {

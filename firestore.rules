@@ -10,11 +10,6 @@ service cloud.firestore {
       allow write: if request.auth.token.admin == true;
     }
 
-    match /contents/{document} {
-      allow read: if true;
-      allow write: if request.auth.token.admin == true;
-    }
-
     // // "admin" 권한이 없는 사용자의 접근을 제한하는 경로와 권한 설정
     // match /restrictedCollection/{document} {
     //   allow read, write: if false;  // "admin" 권한이 없으므로 거부

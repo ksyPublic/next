@@ -20,6 +20,7 @@ import { useForm, Resolver } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Genre, AgeRating, ContentType } from '@/utils/enum';
 import { post } from '@/utils/api';
+import { getFirestore, setDoc, collection, doc } from '@/store/client';
 
 type FormValues = {
 	addKey?: string;
@@ -132,6 +133,8 @@ const resolver: Resolver<FormValues> = async (values) => {
 	};
 };
 
+const db = getFirestore();
+
 const AddMoviePage = () => {
 	const router = useRouter();
 	const [startDate, setStartDate] = useState<string>('2023.01.01');
@@ -148,20 +151,29 @@ const AddMoviePage = () => {
 	};
 
 	const addContentUpdate = async (data: any) => {
-		const response = await post({
-			url: '/api/admin/management/addcontents',
-			data: {
-				addKey: uniqueKey,
-				...data,
-			},
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
+		const getKey = uniqueKey?.replace(/\s+/g, '').replace(/\./g, '');
+		const setData = {
+			addKey: getKey,
+			...data,
+		};
+		// 현재 날짜를 얻어서 YYYY-MM-DD 형식의 문자열로 변환
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // 월에 1을 더하고, 결과가 한 자리수이면 앞에 '0'을 붙입니다.
+		const day = String(date.getDate()).padStart(2, '0'); // 일이 한 자리수이면 앞에 '0'을 붙입니다.
 
-		if (response.status === 200) {
-			router.push('/admin/management');
-		}
+		const formattedDate = `${year}-${month}-${day}`;
+		await setDoc(doc(db, 'contents', `${getKey}`), {
+			setData,
+			formattedDate,
+		})
+			.then(() => {
+				console.log('Document successfully written!');
+				router.push('/admin/management');
+			})
+			.catch((error) => {
+				console.error('Error writing document: ', error);
+			});
 	};
 
 	const {

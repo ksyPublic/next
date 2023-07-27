@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataTable } from '@/components';
 import { MovieListProps, MovieValue } from './types';
 import Link from 'next/link';
@@ -9,23 +9,26 @@ const storage = getStorage();
 const MovieList = ({ data }: MovieListProps) => {
 	const [url, setUrl] = useState<Array<{}>>([]);
 	const getUrl = async (value: MovieValue) => {
-		const origin = value?.titleKR;
-		const storageRef = ref(storage, `images/poster/${origin}/image`);
-		try {
-			const response = await getDownloadURL(storageRef);
-			if (response) {
-				setUrl([{ image: response }]);
-			}
-		} catch (error) {
-			console.error('다운로드 URL을 가져오는 데 실패했습니다: ', error);
-			setUrl([
-				{
-					image:
-						'/images/common/KR-ko-20230703-popsignuptwoweeks-perspective_alpha_website_small.jpg',
-				},
-			]);
-		}
+		// const origin = value?.titleKR;
+		// const storageRef = ref(storage, `images/poster/${origin}/image`);
+		// try {
+		// 	const response = await getDownloadURL(storageRef);
+		// 	if (response) {
+		// 		setUrl([{ image: response }]);
+		// 	}
+		// } catch (error) {
+		// 	console.error('다운로드 URL을 가져오는 데 실패했습니다: ', error);
+		// 	setUrl([
+		// 		{
+		// 			image:
+		// 				'images/common/KR-ko-20230703-popsignuptwoweeks-perspective_alpha_website_small.jpg',
+		// 		},
+		// 	]);
+		// }
 	};
+
+	useEffect(() => {}, []);
+
 	return (
 		<DataTable.Wrapper caption="등록된 컨텐츠 목록">
 			<colgroup>
@@ -50,8 +53,6 @@ const MovieList = ({ data }: MovieListProps) => {
 						Object.entries(data).map(
 							([key, value]: [string, MovieValue], i: number) => {
 								if (!value) return;
-								getUrl(value);
-
 								return (
 									<tr key={key}>
 										<td>{i + 1}</td>
