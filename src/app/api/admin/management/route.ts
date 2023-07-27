@@ -1,19 +1,20 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { database, ref, get } from '@/store/database';
+import { NextResponse, NextRequest } from 'next/server';
+import { collection, getDocs, getFirestore } from '@/store/client';
 
-export async function GET(req: NextRequest, res:NextResponse) {
-  const getContentsData = ref(database, 'contents/data');
-  let data;
-  
-  await get(getContentsData).then((snapshot) => {
-    if (snapshot.exists()) {
-      data = snapshot.val();
-    } else {
-      console.log("데이터가 없습니다.");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-
-  return NextResponse.json(data, {status:200});
+const db = getFirestore();
+export async function GET(req: NextRequest, res: NextResponse) {
+	try {
+		const querySnapshot = await getDocs(collection(db, 'contents/data'));
+		const contentsData: any[] = [];
+		querySnapshot.forEach((doc) => {
+			contentsData.push(doc.data());
+		});
+		return NextResponse.json(contentsData, { status: 200 });
+	} catch (error) {
+		console.error('Error in GET /api/admin/management:', error);
+		return NextResponse.json(
+			{ message: 'Error fetching data' },
+			{ status: 500 },
+		);
+	}
 }

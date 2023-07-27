@@ -1,42 +1,53 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { database, ref, child, push, update } from '@/store/database';
+import { NextResponse, NextRequest } from 'next/server';
+import { getFirestore, doc, setDoc } from '@/store/client';
+import { customInitApp } from '@/store/admin';
+import validateSession from '@/utils/session';
 
 type ContentsDataProps = {
-  addKey?: string,
-  contentType?:string,
-  titleKR?:string,
-  titleEN?:string,
-  director?: string,
-  cast?: string,
-  genre?: string,
-  rating?: string,
-  release?: string,
-  summary?: string,
-  trailer?: string,
-}
+	addKey?: string;
+	contentType?: string;
+	titleKR?: string;
+	titleEN?: string;
+	director?: string;
+	cast?: string;
+	genre?: string;
+	rating?: string;
+	release?: string;
+	summary?: string;
+	trailer?: string;
+};
 
+customInitApp();
+const db = getFirestore();
 export async function POST(req: NextRequest) {
-  const formData = JSON.parse(await req.text());
+	const decodedClaims = await validateSession(req);
 
-  const { contentType, titleKR, titleEN, director, cast, genre, rating, release, summary, trailer, addKey } = formData as ContentsDataProps;
+	// 유저의 클레임 정보에서 admin 클레임을 확인
+	const isAdmin = decodedClaims?.admin;
 
-  const getKey = addKey?.replace(/\s+/g, '').replace(/\./g, '')
-  const newPostRef = push(child(ref(database), 'contents'));
-  const newPostKey = newPostRef.key;
-  // 현재 날짜를 얻어서 YYYY-MM-DD 형식의 문자열로 변환
-  const date = new Date();
-  const addDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+	if (isAdmin) {
+		const formData = JSON.parse(await req.text());
+		const { addKey } = formData as ContentsDataProps;
+		const getKey = addKey?.replace(/\s+/g, '').replace(/\./g, '');
 
-  if (newPostKey) {
-    const updates: Record<string, ContentsDataProps> = {};
-    updates['/contents/' + 'data' + `/${getKey}`] = {
-      ...formData,
-      addDate
-    };
-    
-    await update(ref(database), updates);
-    return NextResponse.json({ message: 'Success' }, {status:200});
-  } else {
-    return NextResponse.json({ message: 'Error generating unique key' }, {status:500});
-  }
+		// 현재 날짜를 얻어서 YYYY-MM-DD 형식의 문자열로 변환
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // 월에 1을 더하고, 결과가 한 자리수이면 앞에 '0'을 붙입니다.
+		const day = String(date.getDate()).padStart(2, '0'); // 일이 한 자리수이면 앞에 '0'을 붙입니다.
+
+		const formattedDate = `${year}-${month}-${day}`;
+		try {
+			await setDoc(doc(db, 'contents', 'data', `${getKey}`), {
+				...formData,
+				formattedDate,
+			});
+
+			return NextResponse.json({ message: 'success' }, { status: 200 });
+		} catch (error) {
+			return NextResponse.json({ message: 'fail' }, { status: 405 });
+		}
+	} else {
+		return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+	}
 }

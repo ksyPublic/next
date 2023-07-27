@@ -2,7 +2,7 @@
 import { NextRequest } from 'next/server'
 import admin, { auth } from 'firebase-admin'
 
-const uid = 'wleVzGN1zKM5RhmgWRTIr9V5Off2';
+const uid = `${process.env.NEXT_PUBLIC_ADMIN_USER}`;
 
 export default async function validateSession(request: NextRequest) {
 // Set custom claim for the user
