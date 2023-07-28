@@ -33,7 +33,10 @@ type FormValues = {
 	rating?: string;
 	release?: string;
 	summary?: string;
+	poster?: string;
+	runningTime?: number;
 	trailer?: string;
+	videos?: string;
 };
 
 const resolver: Resolver<FormValues> = async (values) => {
@@ -107,6 +110,16 @@ const resolver: Resolver<FormValues> = async (values) => {
 		};
 	}
 
+	if (!values.runningTime) {
+		errors = {
+			...errors,
+			runningTime: {
+				type: 'required',
+				message: '· 러닝타임 입력은 필수입니다.',
+			},
+		};
+	}
+
 	if (!values.release) {
 		errors = {
 			...errors,
@@ -123,6 +136,36 @@ const resolver: Resolver<FormValues> = async (values) => {
 			summary: {
 				type: 'required',
 				message: '· 줄거리 입력은 필수입니다.',
+			},
+		};
+	}
+
+	if (!values.poster) {
+		errors = {
+			...errors,
+			poster: {
+				type: 'required',
+				message: '· 포스터 이미지는 필수입니다.(이미지를 넣어주세요)',
+			},
+		};
+	}
+
+	if (!values.trailer) {
+		errors = {
+			...errors,
+			trailer: {
+				type: 'required',
+				message: '· 트레일러 영상은 필수입니다.(트레일러 영상을 넣어주세요)',
+			},
+		};
+	}
+
+	if (!values.videos) {
+		errors = {
+			...errors,
+			videos: {
+				type: 'required',
+				message: '· 메인 영상은 필수입니다.',
 			},
 		};
 	}
@@ -177,6 +220,7 @@ const AddMoviePage = () => {
 	};
 
 	const {
+		control,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -330,12 +374,19 @@ const AddMoviePage = () => {
 				</Form.Row>
 				<Form.Row>
 					<Form.Column>
-						<Label name="러닝타임" />
-						<Text
-							as="p"
-							className="text-gray-400 h-24 flex items-center"
-							name="1:00:00"
-						/>
+						<Label name="러닝타임" htmlFor="runningTime" />
+						<div className="flex flex-col w-full">
+							<Input
+								{...register('runningTime')}
+								type="number"
+								placeholder="러닝타임을 입력해주세요."
+								className="w-full"
+								id="runningTime"
+							/>
+							{errors?.runningTime && (
+								<MessageBox text={errors.runningTime.message} error />
+							)}
+						</div>
 					</Form.Column>
 				</Form.Row>
 				<Form.Row>
@@ -343,31 +394,53 @@ const AddMoviePage = () => {
 						<Label name="포스터 이미지 URL" htmlFor="poster" />
 						<div className="flex flex-col w-full">
 							<DropZone
+								control={control}
+								name="poster"
+								rules={{ required: true }}
 								disabled={disabled}
 								placeholder="포스터 이미지를 넣어주세요."
 								storageKey={`/images/poster/${uniqueKey}`}
 							/>
+							{errors?.poster && (
+								<MessageBox text={errors.poster.message} error />
+							)}
 						</div>
 					</Form.Column>
 				</Form.Row>
 				<Form.Row>
 					<Form.Column>
 						<Label name="트레일러" htmlFor="trailer" />
-						<DropZone
-							disabled={disabled}
-							placeholder="트레일러 영상을 넣어주세요."
-							storageKey={`/video/trailer/${uniqueKey}`}
-						/>
+						<div className="flex flex-col w-full">
+							<DropZone
+								control={control}
+								name="trailer"
+								rules={{ required: true }}
+								disabled={disabled}
+								placeholder="트레일러 영상을 넣어주세요."
+								storageKey={`/video/trailer/${uniqueKey}`}
+							/>
+							{errors?.trailer && (
+								<MessageBox text={errors.trailer.message} error />
+							)}
+						</div>
 					</Form.Column>
 				</Form.Row>
 				<Form.Row>
 					<Form.Column>
 						<Label name="컨텐츠" htmlFor="videos" />
-						<DropZone
-							disabled={disabled}
-							placeholder="컨텐츠 영상을 넣어주세요."
-							storageKey={`/video/content/${uniqueKey}`}
-						/>
+						<div className="flex flex-col w-full">
+							<DropZone
+								control={control}
+								name="videos"
+								rules={{ required: true }}
+								disabled={disabled}
+								placeholder="컨텐츠 영상을 넣어주세요."
+								storageKey={`/video/content/${uniqueKey}`}
+							/>
+							{errors?.videos && (
+								<MessageBox text={errors.videos.message} error />
+							)}
+						</div>
 					</Form.Column>
 				</Form.Row>
 			</Form>
