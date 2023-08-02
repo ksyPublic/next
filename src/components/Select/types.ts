@@ -39,10 +39,9 @@ interface SelectBaseProps {
 	placeholder?: string;
 	className?: string;
 	id?: string;
-	selectOptions?: { [index: string]: string };
 	value?: string;
+
 	disabled?: boolean;
-	items?: ItemInput[];
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	readOnly?: boolean;
 	title?: string | React.ReactElement;
@@ -64,9 +63,26 @@ interface SelectBaseProps {
 	overlayProps?: Partial<OverlayProps>;
 }
 
-export type SelectListProps = SelectBaseProps & {};
+export type SelectListProps = {
+	items: ItemInput[];
+	role?: AriaRole;
+	id?: string;
+	renderItem?: RenderItemFn;
+	variant?: 'inset' | 'full';
+	selectionVariant?: 'single' | 'multiple';
+	showItemDividers?: boolean;
+	loading?: boolean;
+	placeholderText?: string;
+	filterValue?: string;
+	onFilterChange: (
+		value: string,
+		e: React.ChangeEvent<HTMLInputElement>,
+	) => void;
+	inputRef?: React.RefObject<HTMLInputElement>;
+};
 
 export type SelectProps = SelectBaseProps &
+	Omit<SelectListProps, 'selectionVariant'> &
 	Pick<AnchoredOverlayProps, 'open'> &
 	AnchoredOverlayWrapperAnchorProps &
 	(SelectPanelSingleSelection | SelectPanelMultiSelection);

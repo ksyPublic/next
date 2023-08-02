@@ -1,5 +1,5 @@
 import { SelectListProps } from './types';
-const SelectList = ({ onFilterChange, ...props }) => {
+const SelectList = ({ onFilterChange, items, ...props }: SelectListProps) => {
 	return <>dddd</>;
 };
 

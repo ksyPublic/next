@@ -25,6 +25,11 @@ function isMultiSelectVariant(
 	return Array.isArray(selected);
 }
 
+const focusZoneSettings: Partial<FocusZoneHookSettings> = {
+	// Let FilteredActionList handle focus zone
+	disabled: true,
+};
+
 const SelectComponent = React.forwardRef(
 	(
 		{
@@ -42,7 +47,6 @@ const SelectComponent = React.forwardRef(
 			overlayProps,
 			id,
 			placeholder,
-			selectOptions,
 			onChange,
 			onSelectedChange,
 			filterValue: externalFilterValue,
@@ -75,11 +79,6 @@ const SelectComponent = React.forwardRef(
 
 		const focusTrapSettings = {
 			initialFocusRef: selectRef,
-		};
-
-		const focusZoneSettings: Partial<FocusZoneHookSettings> = {
-			// Let FilteredActionList handle focus zone
-			disabled: true,
 		};
 
 		const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(

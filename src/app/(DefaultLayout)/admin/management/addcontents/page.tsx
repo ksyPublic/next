@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 import { Genre, AgeRating, ContentType } from '@/utils/enum';
 import { post } from '@/utils/api';
 import { getFirestore, setDoc, collection, doc } from '@/store/client';
+import type { ItemInput } from '@/components';
 
 type FormValues = {
 	addKey?: string;
@@ -183,6 +184,20 @@ const AddMoviePage = () => {
 	const [startDate, setStartDate] = useState<string>('2023.01.01');
 	const [uniqueKey, setUniqueKey] = useState<string>('');
 	const [disabled, setDisabled] = useState<boolean>(true);
+
+	/** rating */
+
+	const [ratingOpen, ratingSetOpen] = useState(false);
+	const [ratingFilter, setRatingFilter] = useState('');
+	const filteredItems = AgeRating.filter((item) => {
+		item.text.toLowerCase().startsWith(ratingFilter.toLowerCase());
+	});
+
+	const [ratingSelected, ratingSetSelected] = React.useState<ItemInput[]>([
+		AgeRating[0],
+		AgeRating[1],
+	]);
+
 	const onTitleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUniqueKey(event.target.value);
 
@@ -316,7 +331,6 @@ const AddMoviePage = () => {
 							<Select
 								{...register('genre')}
 								id="genre"
-								selectOptions={Genre}
 								placeholder="장르를 선택하세요."
 							/>
 							{errors?.genre && (
@@ -329,8 +343,13 @@ const AddMoviePage = () => {
 						<div className="flex flex-col w-full">
 							<Select
 								{...register('rating')}
+								open={ratingOpen}
+								selected={ratingSelected}
+								items={filteredItems}
+								onOpenChange={ratingSetOpen}
+								onSelectedChange={ratingSetSelected}
+								onFilterChange={setRatingFilter}
 								id="rating"
-								selectOptions={AgeRating}
 								placeholder="시청등급을 선택하세요."
 							/>
 							{errors?.rating && (
